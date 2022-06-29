@@ -32,7 +32,8 @@ class MicrobusController extends Controller
             array_merge($validator->validate(),),
         );
 
-        $microbus->foto = $request->foto;
+        $image = $this->saveImage($request->foto, 'imagenes');
+        $microbus->foto = $image;
         $microbus->modelo = $request->modelo;
         $microbus->nro_asientos = $request->nro_asientos;
         $microbus->fecha_baja = $request->fecha_baja;

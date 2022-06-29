@@ -31,3 +31,13 @@ Route::group([
 
 Route::get('lineas', 'App\Http\Controllers\MicrobusController@getLineasAll');
 Route::get('getBus/{conductor}', 'App\Http\Controllers\MicrobusController@getBus');
+
+//NUEVA AUTHENTICATION
+Route::post('login', 'App\Http\Controllers\UserController@login');
+Route::post('register', 'App\Http\Controllers\UserController@register');
+
+Route::group(['middleware' => ['auth:sanctum']], function() {
+    Route::get('user', 'App\Http\Controllers\UserController@user');
+    Route::put('user', 'App\Http\Controllers\UserController@update');
+    Route::post('logout', 'App\Http\Controllers\UserController@logout');
+});
