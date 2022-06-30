@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('microbus', function (Blueprint $table) {
             $table->id();
-            $table->string('foto')->nullable();
+            $table->string('foto');
             $table->string('placa')->unique();
-            $table->string('modelo')->nullable();
-            $table->integer('nro_asientos')->nullable();
+            $table->string('modelo');
+            $table->integer('nro_asientos');
             $table->integer('nroInterno');
             $table->string('fecha_asignacion')->nullable();
             $table->string('fecha_baja')->nullable();

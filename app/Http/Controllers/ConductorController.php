@@ -29,7 +29,8 @@ class ConductorController extends Controller
         );
 
         $conductor->telefono = $request->telefono;
-        $conductor->foto = $request->foto;
+        $image = $this->saveImage($request->foto, 'imagenes');
+        $conductor->foto = $image;
         $conductor->save();
 
         return response()->json([

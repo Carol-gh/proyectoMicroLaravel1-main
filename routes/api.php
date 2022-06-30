@@ -24,10 +24,22 @@ Route::group([
         Route::post('refresh', 'App\Http\Controllers\AuthController@refresh');
         Route::post('me', 'App\Http\Controllers\AuthController@me');
 
-        Route::post('UserConductor', 'App\Http\Controllers\ConductorController@register');
-        Route::post('MicrobusPerfil', 'App\Http\Controllers\MicrobusController@register');
+        //Route::post('UserConductor', 'App\Http\Controllers\ConductorController@register');
+        //Route::post('MicrobusPerfil', 'App\Http\Controllers\MicrobusController@register');
     }
 );
 
 Route::get('lineas', 'App\Http\Controllers\MicrobusController@getLineasAll');
 Route::get('getBus/{conductor}', 'App\Http\Controllers\MicrobusController@getBus');
+
+//NUEVA AUTHENTICATION
+Route::post('login', 'App\Http\Controllers\UserController@login');
+Route::post('register', 'App\Http\Controllers\UserController@register');
+Route::post('UserConductor', 'App\Http\Controllers\ConductorController@register');
+Route::post('MicrobusPerfil', 'App\Http\Controllers\MicrobusController@register');
+
+Route::group(['middleware' => ['auth:sanctum']], function() {
+    Route::get('user', 'App\Http\Controllers\UserController@user');
+    Route::put('user', 'App\Http\Controllers\UserController@update');
+    Route::post('logout', 'App\Http\Controllers\UserController@logout');
+});
