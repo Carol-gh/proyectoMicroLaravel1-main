@@ -19,7 +19,9 @@ class MicrobusController extends Controller
         $validator = Validator::make($request->all(), [
             'placa'=> 'required',
             'nroInterno' => 'required',
-            'fecha_asignacion' => 'required|date',
+            //'fecha_asignacion' => 'required|date',
+            'modelo' => 'required',
+            'nro_asientos' => 'required',
             'conductor_id' => 'required',
             'linea_id' => 'required'
         ]);
@@ -34,8 +36,9 @@ class MicrobusController extends Controller
 
         $image = $this->saveImage($request->foto, 'imagenes');
         $microbus->foto = $image;
-        $microbus->modelo = $request->modelo;
-        $microbus->nro_asientos = $request->nro_asientos;
+        //$microbus->modelo = $request->modelo;
+        //$microbus->nro_asientos = $request->nro_asientos;
+        $microbus->fecha_asignacion = $request->fecha_asignacion;
         $microbus->fecha_baja = $request->fecha_baja;
         $microbus->save();
 
