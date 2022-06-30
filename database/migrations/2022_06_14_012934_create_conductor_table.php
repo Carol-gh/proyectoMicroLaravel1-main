@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             $table->string('ci')->unique();
-            $table->string('fecha_nacimiento')->nullable();
-            $table->integer('telefono')->nullable();
+            $table->string('fecha_nacimiento');
+            $table->integer('telefono');
             $table->string('categoria_lic');
             $table->string('foto')->nullable();
             $table->unsignedBigInteger('users_id');
