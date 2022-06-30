@@ -65,6 +65,7 @@ class MicrobusController extends Controller
         $microbus->modelo = $bus->modelo;
         $microbus->nroInterno = $bus->nroInterno;
         $microbus->nro_asientos = $bus->nro_asientos;
+        $microbus->foto = $bus->foto;
         $microbus->linea = $linea->nombre;
         $microbus->conductor = $conductor->nombre;
 
