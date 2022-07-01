@@ -17,6 +17,7 @@ class ConductorController extends Controller
             'ci' => 'required',
             'fecha_nacimiento'=> 'required|date',
             'categoria_lic' => 'required',
+            'telefono' => 'required',
             'users_id' => 'required'
         ]);
 
@@ -28,7 +29,7 @@ class ConductorController extends Controller
             array_merge($validator->validate(),),
         );
 
-        $conductor->telefono = $request->telefono;
+        //$conductor->telefono = $request->telefono;
         $image = $this->saveImage($request->foto, 'imagenes');
         $conductor->foto = $image;
         $conductor->save();
