@@ -1,12 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
-namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Microbus;
 use App\Models\Linea;
@@ -55,12 +52,15 @@ class MicrobusController extends Controller
         return response()->json($lineas);
     }
 
-    public function getBus($conductorId) {
+    public function getBus($userId) {
+        $conductor = Conductor::where(['users_id' => $userId])->first();
+        $conductorId = $conductor->id;
+
         $bus = new Microbus();
         $bus = $bus->getBus($conductorId);
 
         $linea = Linea::where(['id' => $bus->linea_id])->first();
-        $conductor = Conductor::where(['id' => $conductorId])->first();
+        //$conductor = Conductor::where(['id' => $conductorId])->first();
 
         $microbus = new \stdClass();
         $microbus->id = $bus->id;

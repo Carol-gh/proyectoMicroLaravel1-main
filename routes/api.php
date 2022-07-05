@@ -18,28 +18,29 @@ use Illuminate\Support\Facades\Route;
 Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'], function ($router) {
-        Route::post('login', 'App\Http\Controllers\AuthController@login');
-        Route::post('register', 'App\Http\Controllers\AuthController@register');
-        Route::post('logout', 'App\Http\Controllers\AuthController@logout');
-        Route::post('refresh', 'App\Http\Controllers\AuthController@refresh');
-        Route::post('me', 'App\Http\Controllers\AuthController@me');
+        Route::post('login', 'App\Http\Controllers\API\AuthController@login');
+        Route::post('register', 'App\Http\Controllers\API\AuthController@register');
+        Route::post('logout', 'App\Http\Controllers\API\AuthController@logout');
+        Route::post('refresh', 'App\Http\Controllers\API\AuthController@refresh');
+        Route::post('me', 'App\Http\Controllers\API\AuthController@me');
 
         //Route::post('UserConductor', 'App\Http\Controllers\ConductorController@register');
         //Route::post('MicrobusPerfil', 'App\Http\Controllers\MicrobusController@register');
     }
 );
 
-Route::get('lineas', 'App\Http\Controllers\MicrobusController@getLineasAll');
-Route::get('getBus/{conductor}', 'App\Http\Controllers\MicrobusController@getBus');
-
 //NUEVA AUTHENTICATION
-Route::post('login', 'App\Http\Controllers\UserController@login');
-Route::post('register', 'App\Http\Controllers\UserController@register');
-Route::post('UserConductor', 'App\Http\Controllers\ConductorController@register');
-Route::post('MicrobusPerfil', 'App\Http\Controllers\MicrobusController@register');
+Route::post('login', 'App\Http\Controllers\API\UserController@login');
+Route::post('register', 'App\Http\Controllers\API\UserController@register');
+Route::post('UserConductor', 'App\Http\Controllers\API\ConductorController@register');
+Route::post('MicrobusPerfil', 'App\Http\Controllers\API\MicrobusController@register');
+Route::get('lineas', 'App\Http\Controllers\API\MicrobusController@getLineasAll');
+Route::get('getBus/{conductor}', 'App\Http\Controllers\API\MicrobusController@getBus');
+Route::post('create', 'App\Http\Controllers\API\RecorridoController@create');
 
 Route::group(['middleware' => ['auth:sanctum']], function() {
-    Route::get('user', 'App\Http\Controllers\UserController@user');
-    Route::put('user', 'App\Http\Controllers\UserController@update');
-    Route::post('logout', 'App\Http\Controllers\UserController@logout');
+    Route::get('user', 'App\Http\Controllers\API\UserController@user');
+    Route::put('user', 'App\Http\Controllers\API\UserController@update');
+    Route::post('logout', 'App\Http\Controllers\API\UserController@logout');
+    Route::post('ubicacion', 'App\Http\Controllers\API\RecorridoController@detalleRecorrido');
 });
