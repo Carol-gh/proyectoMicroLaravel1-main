@@ -18,9 +18,17 @@ return new class extends Migration
             $table->string('fecha')->nullable();
             $table->string('horaSalida');
             $table->string('horaLLegada')->nullable();
+            $table->double('latitud')->nullable();
+            $table->double('longitud')->nullable();
             $table->string('tiempo')->nullable();
             $table->string('tipo');
+            $table->unsignedBigInteger('micro_id');
             $table->timestamps();
+
+            $table->softDeletes();
+
+            $table->foreign('micro_id')->on('microbus')->references('id')
+            ->onDelete('cascade');
         });
     }
 

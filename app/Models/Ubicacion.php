@@ -12,7 +12,7 @@ class Ubicacion extends Model
     protected $fillable = [
         'latitud',
         'longitud',
-        'tiempo',
+        'distancia',
         'micro_id',
         'recorrido_id',
     ];

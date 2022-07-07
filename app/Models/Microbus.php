@@ -31,9 +31,13 @@ class Microbus extends Model
         return $this->belongsTo(Linea::class, 'linea_id');
     }
 
-    public function ubicaciones() {
-        return $this->hasMany(Ubicacion::class, 'micro_id');
+    public function recorridos() {
+        return $this->hasMany(Recorrido::class, 'micro_id');
     }
+
+    /*public function ubicaciones() {
+        return $this->hasMany(Ubicacion::class, 'micro_id');
+    }*/
 
     public function getBus($bus) {
         return $this->where(['conductor_id' => $bus])->first();

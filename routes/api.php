@@ -35,12 +35,18 @@ Route::post('register', 'App\Http\Controllers\API\UserController@register');
 Route::post('UserConductor', 'App\Http\Controllers\API\ConductorController@register');
 Route::post('MicrobusPerfil', 'App\Http\Controllers\API\MicrobusController@register');
 Route::get('lineas', 'App\Http\Controllers\API\MicrobusController@getLineasAll');
-Route::get('getBus/{conductor}', 'App\Http\Controllers\API\MicrobusController@getBus');
 Route::post('create', 'App\Http\Controllers\API\RecorridoController@create');
+Route::get('getBus/{user}', 'App\Http\Controllers\API\MicrobusController@getBus');
 
 Route::group(['middleware' => ['auth:sanctum']], function() {
     Route::get('user', 'App\Http\Controllers\API\UserController@user');
     Route::put('user', 'App\Http\Controllers\API\UserController@update');
     Route::post('logout', 'App\Http\Controllers\API\UserController@logout');
+
+    Route::get('getBus', 'App\Http\Controllers\API\MicrobusController@getBusAuth');
+
+    Route::post('create', 'App\Http\Controllers\API\RecorridoController@create');
+    Route::put('/update/{id}', 'App\Http\Controllers\API\RecorridoController@update');
+
     Route::post('ubicacion', 'App\Http\Controllers\API\RecorridoController@detalleRecorrido');
 });

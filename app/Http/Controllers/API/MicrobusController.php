@@ -74,4 +74,28 @@ class MicrobusController extends Controller
 
         return response()->json($microbus);
     }
+
+    public function getBusAuth() {
+        $userId = auth()->user()->id;
+        $conductor = Conductor::where(['users_id' => $userId])->first();
+        $conductorId = $conductor->id;
+
+        $bus = new Microbus();
+        $bus = $bus->getBus($conductorId);
+
+        $linea = Linea::where(['id' => $bus->linea_id])->first();
+        //$conductor = Conductor::where(['id' => $conductorId])->first();
+
+        $microbus = new \stdClass();
+        $microbus->id = $bus->id;
+        $microbus->placa = $bus->placa;
+        $microbus->modelo = $bus->modelo;
+        $microbus->nroInterno = $bus->nroInterno;
+        $microbus->nro_asientos = $bus->nro_asientos;
+        $microbus->foto = $bus->foto;
+        $microbus->linea = $linea->nombre;
+        $microbus->conductor = $conductor->nombre;
+
+        return response()->json($microbus);
+    }
 }

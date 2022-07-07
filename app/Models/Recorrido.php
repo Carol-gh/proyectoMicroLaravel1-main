@@ -13,10 +13,18 @@ class Recorrido extends Model
         'fecha',
         'horaSalida',
         'horaLLegada',
-        'distancia',
+        'latitud',
+        'longitud',
+        'tiempo',
+        'tipo',
+        'micro_id'
     ];
 
-    public function ubicaciones() {
-        return $this->hasMany(Ubicacion::class, 'recorrido_id');
+    public function micro() {
+        return $this->belongsTo(Microbus::class, 'micro_id');
     }
+
+    /*public function ubicaciones() {
+        return $this->hasMany(Ubicacion::class, 'recorrido_id');
+    }*/
 }
