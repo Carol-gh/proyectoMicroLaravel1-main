@@ -22,12 +22,12 @@ return new class extends Migration
             $table->double('longitud')->nullable();
             $table->string('tiempo')->nullable();
             $table->string('tipo');
-            $table->unsignedBigInteger('micro_id');
+            $table->unsignedBigInteger('drive_id');
             $table->timestamps();
 
             $table->softDeletes();
 
-            $table->foreign('micro_id')->on('microbus')->references('id')
+            $table->foreign('drive_id')->on('micro_conductor')->references('id')
             ->onDelete('cascade');
         });
     }

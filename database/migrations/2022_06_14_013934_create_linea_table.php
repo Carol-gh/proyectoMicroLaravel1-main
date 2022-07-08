@@ -17,6 +17,12 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             $table->string('tipo')->nullable();
+            $table->string('tiempo')->nullable();
+            /**
+             * Campo tiempo -> indica el tiempo que un micro realiza el recorrido
+             * Ejemplo:
+             * La linea 11 realiza su recorrido en un tiempo de 45 minutos
+             */
             $table->timestamps();
         });
     }

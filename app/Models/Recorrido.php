@@ -17,14 +17,10 @@ class Recorrido extends Model
         'longitud',
         'tiempo',
         'tipo',
-        'micro_id'
+        'drive_id'
     ];
 
     public function micro() {
-        return $this->belongsTo(Microbus::class, 'micro_id');
+        return $this->belongsTo(MicroConductor::class, 'drive_id');
     }
-
-    /*public function ubicaciones() {
-        return $this->hasMany(Ubicacion::class, 'recorrido_id');
-    }*/
 }

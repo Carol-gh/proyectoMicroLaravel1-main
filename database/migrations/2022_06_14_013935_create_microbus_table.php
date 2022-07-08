@@ -22,14 +22,12 @@ return new class extends Migration
             $table->integer('nroInterno');
             $table->string('fecha_asignacion')->nullable();
             $table->string('fecha_baja')->nullable();
-            $table->unsignedBigInteger('conductor_id');
+            $table->string('estado');
             $table->unsignedBigInteger('linea_id');
             $table->timestamps();
 
             $table->softDeletes();
 
-            $table->foreign('conductor_id')->on('conductor')->references('id')
-            ->onDelete('cascade');
             $table->foreign('linea_id')->on('linea')->references('id')
             ->onDelete('cascade');
         });
