@@ -29,26 +29,10 @@ class RecorridoController extends Controller
         $recorrido->longitud = $request->longitud;
         $recorrido->tiempo = $request->tiempo;
         $recorrido->tipo = $request->tipo;
-        $recorrido->micro_id = $micro->id;
+        $recorrido->drive_id = $micro->id;
         $recorrido->save();
 
         return response()->json($recorrido);
-    }
-
-    public function detalleRecorrido(Request $request)
-    {
-        $userId = auth()->user()->id;
-        $conductor = Conductor::where(['users_id' => $userId])->first();
-        $micro = Microbus::where(['conductor_id' => $conductor->id])->first();
-
-        $ubicacion = new Ubicacion();
-        $ubicacion->latitud = $request->latitud;
-        $ubicacion->longitud = $request->longitud;
-        $ubicacion->micro_id = $micro->id;
-        $ubicacion->recorrido_id = $request->idRecorrido;
-        $ubicacion->save();
-
-        return response()->json($ubicacion);
     }
 
     public function update(Request $request, $id)

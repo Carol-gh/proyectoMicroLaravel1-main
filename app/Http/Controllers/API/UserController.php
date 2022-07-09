@@ -27,6 +27,9 @@ class UserController extends Controller
             ['password' => bcrypt($request->password)]
         ));
 
+        $user->linea = $request->linea;
+        $user->save();
+
         return response([
             'user' => $user,
             'token' => $user->createToken('secret')->plainTextToken

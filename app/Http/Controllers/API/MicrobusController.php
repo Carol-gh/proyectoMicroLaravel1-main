@@ -6,20 +6,20 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Microbus;
+use App\Models\MicroConductor;
 use App\Models\Linea;
 use App\Models\Conductor;
+use App\Models\User;
 
 class MicrobusController extends Controller
 {
-    public function register(Request $request)
+    public function createBus(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'placa'=> 'required',
             'nroInterno' => 'required',
-            //'fecha_asignacion' => 'required|date',
             'modelo' => 'required',
             'nro_asientos' => 'required',
-            'conductor_id' => 'required',
             'linea_id' => 'required'
         ]);
 
@@ -33,8 +33,6 @@ class MicrobusController extends Controller
 
         $image = $this->saveImage($request->foto, 'imagenes');
         $microbus->foto = $image;
-        //$microbus->modelo = $request->modelo;
-        //$microbus->nro_asientos = $request->nro_asientos;
         $microbus->fecha_asignacion = $request->fecha_asignacion;
         $microbus->fecha_baja = $request->fecha_baja;
         $microbus->save();
@@ -45,57 +43,46 @@ class MicrobusController extends Controller
         ], 401);
     }
 
-    public function getLineasAll() {
-        $lineas = new Linea();
-        $lineas = $lineas->getLineas();
-
-        return response()->json($lineas);
-    }
-
-    public function getBus($userId) {
-        $conductor = Conductor::where(['users_id' => $userId])->first();
-        $conductorId = $conductor->id;
-
-        $bus = new Microbus();
-        $bus = $bus->getBus($conductorId);
-
-        $linea = Linea::where(['id' => $bus->linea_id])->first();
-        //$conductor = Conductor::where(['id' => $conductorId])->first();
-
-        $microbus = new \stdClass();
-        $microbus->id = $bus->id;
-        $microbus->placa = $bus->placa;
-        $microbus->modelo = $bus->modelo;
-        $microbus->nroInterno = $bus->nroInterno;
-        $microbus->nro_asientos = $bus->nro_asientos;
-        $microbus->foto = $bus->foto;
-        $microbus->linea = $linea->nombre;
-        $microbus->conductor = $conductor->nombre;
-
-        return response()->json($microbus);
-    }
-
-    public function getBusAuth() {
+    /**
+     * Mostrar el listado de micros que el chofer ha conducido
+     */
+    public function getBusToday() {
         $userId = auth()->user()->id;
+        $user = User::where(['id' => $userId])->first();
         $conductor = Conductor::where(['users_id' => $userId])->first();
         $conductorId = $conductor->id;
 
-        $bus = new Microbus();
-        $bus = $bus->getBus($conductorId);
+        //Obtener la lista de los micros conducidos por ese usuario
+        $drivings = new MicroConductor();
+        $drivings = $drivings->getBusesDrive($conductorId);
 
-        $linea = Linea::where(['id' => $bus->linea_id])->first();
-        //$conductor = Conductor::where(['id' => $conductorId])->first();
+        //Obtener la fecha actual
+        $now = Carbon::now();
+        $fecha_actual = $now->format('Y-m-d');
 
-        $microbus = new \stdClass();
-        $microbus->id = $bus->id;
-        $microbus->placa = $bus->placa;
-        $microbus->modelo = $bus->modelo;
-        $microbus->nroInterno = $bus->nroInterno;
-        $microbus->nro_asientos = $bus->nro_asientos;
-        $microbus->foto = $bus->foto;
-        $microbus->linea = $linea->nombre;
-        $microbus->conductor = $conductor->nombre;
+        $buses = [];
 
-        return response()->json($microbus);
+        foreach ($drivings as $driving) {
+            /**Comparar la fecha actual con la fecha de MicroConductor
+             * Si es igual a la fecha actual obtener datos del micro
+             */
+            if ($fecha_actual == $driving->fecha) {
+                $micro = Microbus::where(['id' => $driving->micro_id])->first();
+                $linea = Linea::where(['id' => $micro->linea_id])->first();
+
+                $bus = new \stdClass();
+                $bus->conductor = $user->name;
+                $bus->linea = $linea->nombre;
+                $bus->id = $micro->id;
+                $bus->placa = $micro->placa;
+                $bus->modelo = $micro->modelo;
+                $bus->interno = $micro->nroInterno;
+                $bus->capacidad = $micro->nro_asientos;
+
+                array_push($buses, $bus);
+            }
+        }
+
+        return response()->json($buses);
     }
 }

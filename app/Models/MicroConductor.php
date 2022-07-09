@@ -26,4 +26,8 @@ class MicroConductor extends Model
     public function recorridos() {
         return $this->hasMany(Recorrido::class, 'drive_id');
     }
+
+    public function getBusesDrive($id) {
+        return $this->where(['conductor_id' => $id])->get();
+    }
 }

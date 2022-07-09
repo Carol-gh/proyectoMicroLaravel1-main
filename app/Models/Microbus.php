@@ -30,7 +30,7 @@ class Microbus extends Model
         return $this->hasMany(MicroConductor::class, 'micro_id');
     }
 
-    public function getBus($bus) {
-        return $this->where(['conductor_id' => $bus])->first();
+    public function getBusesLineaX($linea) {
+        return $this->where(['linea_id' => $linea])->get();
     }
 }
