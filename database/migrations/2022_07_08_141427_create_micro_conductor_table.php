@@ -13,19 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('conductor', function (Blueprint $table) {
+        Schema::create('micro_conductor', function (Blueprint $table) {
             $table->id();
-            $table->string('ci')->unique();
-            $table->string('fecha_nacimiento');
-            $table->integer('telefono');
-            $table->string('categoria_lic');
-            $table->string('foto')->nullable();
-            $table->unsignedBigInteger('users_id');
+            $table->date('fecha');
+            $table->unsignedBigInteger('conductor_id');
+            $table->unsignedBigInteger('micro_id');
             $table->timestamps();
 
             $table->softDeletes();
 
-            $table->foreign('users_id')->on('users')->references('id')
+            $table->foreign('conductor_id')->on('conductor')->references('id')
+            ->onDelete('cascade');
+            $table->foreign('micro_id')->on('microbus')->references('id')
             ->onDelete('cascade');
         });
     }
@@ -37,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('conductor');
+        Schema::dropIfExists('micro_conductor');
     }
 };

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -13,7 +13,6 @@ class ConductorController extends Controller
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nombre' => 'required',
             'ci' => 'required',
             'fecha_nacimiento'=> 'required|date',
             'categoria_lic' => 'required',
@@ -29,10 +28,36 @@ class ConductorController extends Controller
             array_merge($validator->validate(),),
         );
 
-        //$conductor->telefono = $request->telefono;
         $image = $this->saveImage($request->foto, 'imagenes');
         $conductor->foto = $image;
         $conductor->save();
+
+        return response()->json([
+            'message' => 'Conductor creado',
+            'conductor' => $conductor
+        ], 401);
+    }
+
+    public function createDriver(Request $request)
+    {
+        $userId = auth()->user()->id;
+        $image = $this->saveImage($request->foto, 'imagenes');
+
+        $attrs = $request->validate([
+            'ci' => 'required',
+            'fecha_nacimiento'=> 'required|date',
+            'categoria_lic' => 'required',
+            'telefono' => 'required',
+        ]);
+
+        $conductor = Conductor::create([
+            'ci' => $attrs['ci'],
+            'fecha_nacimiento'=> $attrs['fecha_nacimiento'],
+            'categoria_lic' => $attrs['categoria_lic'],
+            'telefono' => $attrs['telefono'],
+            'foto' => $image,
+            'users_id' => $userId
+        ]);
 
         return response()->json([
             'message' => 'Conductor creado',

@@ -12,6 +12,7 @@ class Linea extends Model
     protected $fillable = [
         'nombre',
         'tipo',
+        'tiempo',
     ];
 
     public function ruta() {
