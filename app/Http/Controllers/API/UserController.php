@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -26,6 +26,9 @@ class UserController extends Controller
             $validator->validate(),
             ['password' => bcrypt($request->password)]
         ));
+
+        $user->linea = $request->linea;
+        $user->save();
 
         return response([
             'user' => $user,
