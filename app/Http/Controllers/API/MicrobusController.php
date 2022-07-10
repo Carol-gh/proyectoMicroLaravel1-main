@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 use App\Models\Microbus;
 use App\Models\MicroConductor;
 use App\Models\Linea;
@@ -78,6 +79,7 @@ class MicrobusController extends Controller
                 $bus->modelo = $micro->modelo;
                 $bus->interno = $micro->nroInterno;
                 $bus->capacidad = $micro->nro_asientos;
+                $bus->foto = $micro->foto;
 
                 array_push($buses, $bus);
             }
