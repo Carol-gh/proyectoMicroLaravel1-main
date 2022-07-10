@@ -18,7 +18,7 @@ class Ruta extends Model
     public function linea() {
         return $this->belongsTo(Linea::class, 'linea_id');
     }
-    public function coordenada() {
+    public function coordenadas() {
         return $this->hasMany(Coordenada::class, 'ruta_id');
     }
 }
