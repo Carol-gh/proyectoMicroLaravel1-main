@@ -85,6 +85,8 @@ class MicrobusController extends Controller
             }
         }
 
-        return response()->json($buses);
+        return response([
+            'bus' => $buses
+        ], 200);
     }
 }
