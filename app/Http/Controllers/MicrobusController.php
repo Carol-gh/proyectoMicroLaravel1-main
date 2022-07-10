@@ -13,7 +13,22 @@ use App\Models\Linea;
 use App\Models\Conductor;
 
 class MicrobusController extends Controller
-{
+{ 
+     public function view()
+    {
+        return view('modelo.view');
+    }
+
+       public function index()
+    {
+        return view('microbus.index');
+    }
+    
+    public function create()
+    {
+        return view('microbus.create');
+    }
+
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -43,6 +58,8 @@ class MicrobusController extends Controller
             'message' => 'Microbus creado',
             'microbus' => $microbus
         ], 401);
+
+       
     }
 
     public function getLineasAll() {
