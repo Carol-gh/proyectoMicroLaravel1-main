@@ -80,6 +80,7 @@ class MicrobusController extends Controller
                 $bus->interno = $micro->nroInterno;
                 $bus->capacidad = $micro->nro_asientos;
                 $bus->foto = $micro->foto;
+                $bus->driving = $driving->id;
 
                 array_push($buses, $bus);
             }
@@ -88,5 +89,20 @@ class MicrobusController extends Controller
         return response([
             'bus' => $buses
         ], 200);
+    }
+
+    public function asignBusDriver(Request $request) {
+        $userId = auth()->user()->id;
+        $microId = $request->micro_id;
+        $now = Carbon::now();
+        $fecha_actual = $now->format('Y-m-d');
+
+        $driving = new MicroConductor();
+        $driving->fecha = $fecha_actual;
+        $driving->conductor_id = $userId;
+        $driving->micro_id = $microId;
+        $driving->save();
+
+        return response()->json($driving);
     }
 }

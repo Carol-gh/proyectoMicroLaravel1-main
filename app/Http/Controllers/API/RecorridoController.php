@@ -7,32 +7,44 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
 use App\Models\Recorrido;
-use App\Models\Ubicacion;
-use App\Models\Conductor;
-use App\Models\Microbus;
+use App\Models\Linea;
 use App\Models\User;
+use App\Models\MicroConductor;
+use App\Models\Conductor;
 
 class RecorridoController extends Controller
 {
     public function create(Request $request)
     {
         $userId = auth()->user()->id;
+        $user = User::where(['id' => $userId])->first();
+        $linea = Linea::where(['nombre' => $user->linea])->first();
+        $tiempo = $linea->tiempo;
+
+        $now = Carbon::now();
+        $newtime = Carbon::now()->addMinutes($tiempo);
+
         $conductor = Conductor::where(['users_id' => $userId])->first();
-        $micro = Microbus::where(['conductor_id' => $conductor->id])->first();
+        $driving = MicroConductor::where([
+            'conductor_id' => $conductor->id,
+            'fecha' => $now->format('Y-m-d')
+        ])->first();
 
         $recorrido = new Recorrido();
-        $now = Carbon::now();
         $recorrido->fecha = $now->format('Y-m-d');
         $recorrido->horaSalida = $now->format('H:i');
-        $recorrido->horaLLegada = $request->horaLlegada;
+        $recorrido->horaLLegada = $newtime->format('H:i');
         $recorrido->latitud = $request->latitud;
         $recorrido->longitud = $request->longitud;
-        $recorrido->tiempo = $request->tiempo;
+        $recorrido->tiempo = $tiempo;
         $recorrido->tipo = $request->tipo;
-        $recorrido->drive_id = $micro->id;
+        $recorrido->drive_id = $driving->id;
         $recorrido->save();
 
-        return response()->json($recorrido);
+        return response()->json([
+            'message' => 'Recorrido creado',
+            'recorrido' => $recorrido
+        ], 200);
     }
 
     public function update(Request $request, $id)
