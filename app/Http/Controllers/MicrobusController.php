@@ -14,14 +14,11 @@ use App\Models\Conductor;
 
 class MicrobusController extends Controller
 { 
-     public function view()
-    {
-        return view('modelo.view');
-    }
 
        public function index()
     {
-        return view('microbus.index');
+        $microbus = Microbus::all();
+        return view('microbus.index',compact('microbus'));
     }
     
     public function create()

@@ -154,8 +154,8 @@
               
             
               <li class="nav-item">
-                    <a class="nav-link" href="{{ route('modeloMicrobus.view') }}">
-                        {{ __('Choferes') }}
+                    <a class="nav-link" href="{{ route('conductorMicrobus.view') }}">
+                        {{ __('Conductor/Choferes') }}
                     </a>
                   </li>
 

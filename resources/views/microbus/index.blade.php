@@ -32,17 +32,19 @@
     </tr>
   </thead>
   <tbody>
+  @foreach($microbus as $microbus)
   <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-      <td>@mdo</td>
+      <th scope="row">$microbus->id</th>
+      <td>$microbus->placa</td>
+      <td>$microbus->asientos</td>
+      <td>@$microbus->linea</td>
+      <td>@$microbus->modelo</td>
       <td class="px-6 py-4 text-center">              
             <button type="button" class="btn btn-outline-success"> ver o editar</button>
             <button type="button" class="btn btn-outline-danger">eliminar</button> </span> 
         </td>
     </tr>
+    @endforeach
 </tbody>
 </table>
           

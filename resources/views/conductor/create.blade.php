@@ -8,7 +8,7 @@
 <table class="table">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">REGITRAR MICROBBUS</th>
+      <th scope="col">REGITRAR CONDUCTOR</th>
     </tr>
   </thead>
   <tbody>
@@ -16,43 +16,28 @@
       <th scope="row">
       <form>
     <div class="form-group">
-        <label for="example-text-input" class="form-control-label">PLACA</label>
+        <label for="example-text-input" class="form-control-label">NOMBRE</label>
         <input class="form-control" type="text" value="PK3HS" id="example-text-input">
     </div>
     <div class="form-group">
-        <label for="example-search-input" class="form-control-label">ASIENTOS</label>
+        <label for="example-search-input" class="form-control-label">SEXO</label>
         <input class="form-control" type="search" value="20" id="example-search-input">
     </div>
     <div class="form-group">
-        <label for="example-email-input" class="form-control-label">MODELO</label>
+        <label for="example-email-input" class="form-control-label">TELEFONO</label>
         <input class="form-control" type="email" value="2015" id="example-email-input">
     </div>
     <div class="form-group">
-        <label for="example-url-input" class="form-control-label">LINEA</label>
-        <select class="form-control">
-          <option value="one">One</option> 
-          <option value="two">Two</option> 
-          <option value="three">Three</option> 
-          <option value="four">Four</option> 
-          <option value="five">Five</option> 
-        </select>
-
+        <label for="example-url-input" class="form-control-label">CATEGORIA LICENCIA</label>
+        <input class="form-control" type="url" value="10" id="example-url-input">
     </div>
     <div class="form-group">
-        <label for="example-tel-input" class="form-control-label">NUMERO INTERNO</label>
+        <label for="example-tel-input" class="form-control-label">ASIGNAR LINEA</label>
         <input class="form-control" type="tel" value="40-(770)-888-444" id="example-tel-input">
     </div>
     <div class="form-group">
-        <label for="example-password-input" class="form-control-label">FECHA ASIGNACION</label>
+        <label for="example-password-input" class="form-control-label">TIEMPO RECORRIDO</label>
         <input class="form-control" type="datetime-local" value="2018-11-23T10:30:00" id="example-datetime-local-input">
-    </div>
-    <div class="form-group">
-        <label for="example-number-input" class="form-control-label">FECHA BAJA</label>
-        <input class="form-control" type="datetime-local" value="2018-11-23T10:30:00" id="example-datetime-local-input">
-    </div>
-    <div class="form-group">
-        <label for="example-datetime-local-input" class="form-control-label">ESTADO</label>
-        <input class="form-control" type="text" value="John Snow" id="example-text-input">
     </div>
    
 </form>

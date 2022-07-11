@@ -15,23 +15,22 @@ class Microbus extends Model
         'placa',
         'modelo',
         'nro_asientos',
-        'nro_linea',
         'nroInterno',
         'fecha_asignacion',
         'fecha_baja',
-        'conductor_id',
+        'estado',
         'linea_id'
     ];
-
-    public function conductor() {
-        return $this->belongsTo(Conductor::class, 'conductor_id');
-    }
 
     public function linea() {
         return $this->belongsTo(Linea::class, 'linea_id');
     }
 
-    public function getBus($bus) {
-        return $this->where(['conductor_id' => $bus])->first();
+    public function drives() {
+        return $this->hasMany(MicroConductor::class, 'micro_id');
+    }
+
+    public function getBusesLineaX($linea) {
+        return $this->where(['linea_id' => $linea])->get();
     }
 }

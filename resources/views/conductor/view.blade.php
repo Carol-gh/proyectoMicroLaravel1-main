@@ -14,7 +14,7 @@
          <div class="col-sm-12">
            <button class="btn btn-icon btn-primary" type="button">
 	        <span class="btn-inner--icon"><i class="ni ni-bag-17"></i></span>
-           <a href="#" class="btn-inner--text">Registrar chofer</a>
+           <a href="{{ route('conductorMicrobus.create') }}" class="btn-inner--text">Registrar chofer</a>
 
             </button>
           </div>    
