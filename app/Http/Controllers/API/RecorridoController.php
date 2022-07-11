@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
+use DateTime;
 use App\Models\Recorrido;
 use App\Models\Linea;
 use App\Models\User;
@@ -50,6 +51,14 @@ class RecorridoController extends Controller
     public function update(Request $request, $id)
     {
         $track = Recorrido::find($id);
+        $horaUpd = $track->updated_at->format('H:i');
+        $dateUpd = new DateTime($horaUpd);
+        $dateOld = new DateTime($track->horaSalida);
+        $llegTime = new DateTime($track->horaLLegada);
+        $tiempoUpd = $dateOld->diff($dateUpd);
+        $tiempoUpd = $tiempoUpd->format('%h:%i:%s');
+        $retraso = $llegTime->diff($dateUpd);
+        $retraso = $retraso->format('%h:%i:%s');
 
         if(!$track)
         {
@@ -60,7 +69,9 @@ class RecorridoController extends Controller
 
         $track->update([
             'latitud' =>  $request->latitud,
-            'longitud' => $request->longitud
+            'longitud' => $request->longitud,
+            'tiempo' => $tiempoUpd,
+            'retraso' => $retraso
         ]);
 
         return response([
