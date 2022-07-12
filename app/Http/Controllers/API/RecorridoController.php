@@ -12,6 +12,7 @@ use App\Models\Linea;
 use App\Models\User;
 use App\Models\MicroConductor;
 use App\Models\Conductor;
+use App\Models\Comment;
 
 class RecorridoController extends Controller
 {
@@ -74,9 +75,29 @@ class RecorridoController extends Controller
             'retraso' => $retraso
         ]);
 
-        return response([
+        return response()->json([
             'message' => 'Recorrido updated.',
             'recorrido' => $track
         ], 200);
     }
+
+    public function saveRetiro(Request $request)
+    {
+        $recorridoId = $request->recorrido_id;
+        $track = Recorrido::find($recorridoId);
+        $horaUpdate = $track->updated_at->format('H:i');
+
+        $comment = new Comment();
+        $comment->motivo = $request->motivo;
+        $comment->horaRetiro = $horaUpdate;
+        $comment->recorrido_id = $recorridoId;
+        $comment->save();
+
+        return response()->json([
+            'message' => 'Salir recorrido exitoso.',
+            'comentario' => $comment
+        ], 200);
+    }
+
+
 }

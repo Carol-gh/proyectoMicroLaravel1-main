@@ -38,6 +38,7 @@ Route::group(['middleware' => ['auth:sanctum']], function() {
 
     Route::post('recorrido', 'App\Http\Controllers\API\RecorridoController@create');
     Route::put('/update/{id}', 'App\Http\Controllers\API\RecorridoController@update');
+    Route::post('salir', 'App\Http\Controllers\API\RecorridoController@saveRetiro');
 
     Route::post('ubicacion', 'App\Http\Controllers\API\RecorridoController@detalleRecorrido');
 });
