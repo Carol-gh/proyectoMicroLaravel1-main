@@ -91,6 +91,30 @@ class MicrobusController extends Controller
         ], 200);
     }
 
+    public function getBuses(Request $request) {
+        $micros = new Microbus();
+        $micros = $micros->getBusesLineaX($request->linea);
+
+        $buses = [];
+
+        foreach ($micros as $micro) {
+            $bus = new \stdClass();
+            $bus->linea = $request->linea;
+            $bus->id = $micro->id;
+            $bus->placa = $micro->placa;
+            $bus->modelo = $micro->modelo;
+            $bus->interno = $micro->nroInterno;
+            $bus->capacidad = $micro->nro_asientos;
+            $bus->foto = $micro->foto;
+
+            array_push($buses, $bus);
+        }
+
+        return response([
+            'bus' => $buses
+        ], 200);
+    }
+
     public function asignBusDriver(Request $request) {
         $userId = auth()->user()->id;
         $microId = $request->micro_id;

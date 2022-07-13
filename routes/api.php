@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('login', 'App\Http\Controllers\API\UserController@login');
 Route::post('register', 'App\Http\Controllers\API\UserController@register');
 Route::get('showbuses', 'App\Http\Controllers\API\RecorridoController@getCoordinates');
+Route::get('getbuses', 'App\Http\Controllers\API\MicrobusController@getBuses');
 
 Route::post('createDriver', 'App\Http\Controllers\API\ConductorController@register');
 
