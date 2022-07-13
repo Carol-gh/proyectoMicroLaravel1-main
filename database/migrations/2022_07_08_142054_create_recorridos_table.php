@@ -21,7 +21,9 @@ return new class extends Migration
             $table->double('latitud')->nullable();
             $table->double('longitud')->nullable();
             $table->string('tiempo')->nullable();
+            $table->string('retraso')->nullable();
             $table->string('tipo');
+            $table->string('estado')->default('activo');
             $table->unsignedBigInteger('drive_id');
             $table->timestamps();
 
