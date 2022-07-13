@@ -23,4 +23,8 @@ class Recorrido extends Model
     public function micro() {
         return $this->belongsTo(MicroConductor::class, 'drive_id');
     }
+
+    public function comentario() {
+        return $this->hasOne(Comment::class, 'recorrido_id');
+    }
 }
