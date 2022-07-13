@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class ConductorController extends Controller
+class ConductorControllerA extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -40,6 +40,7 @@ class ConductorController extends Controller
     public function store(Request $request)
     {
         //
+        
     }
 
     /**

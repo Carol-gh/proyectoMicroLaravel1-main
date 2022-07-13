@@ -8,63 +8,65 @@
 <table class="table">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">REGITRAR MICROBBUS</th>
+      <th scope="col">REGISTRAR MICROBBUS</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th scope="row">
-      <form>
+      <form action="{{route('microbus.register') }}" method="POST" class="form-horizontal" enctype="multipart/form-data">
+     @csrf       
     <div class="form-group">
         <label for="example-text-input" class="form-control-label">PLACA</label>
-        <input class="form-control" type="text" value="PK3HS" id="example-text-input">
+        <input class="form-control" type="text" value="{{old('placa')}}" id="placa" required>
     </div>
     <div class="form-group">
         <label for="example-search-input" class="form-control-label">ASIENTOS</label>
-        <input class="form-control" type="search" value="20" id="example-search-input">
+        <input class="form-control" type="text" value="{{old('nro_asientos')}}" id="nro_asientos" required>
     </div>
     <div class="form-group">
         <label for="example-email-input" class="form-control-label">MODELO</label>
-        <input class="form-control" type="email" value="2015" id="example-email-input">
+        <input class="form-control" type="text" value="{{old('modelo')}}" id="modelo" required>
     </div>
     <div class="form-group">
-        <label for="example-url-input" class="form-control-label">LINEA</label>
-        <select class="form-control">
-          <option value="one">One</option> 
-          <option value="two">Two</option> 
-          <option value="three">Three</option> 
-          <option value="four">Four</option> 
-          <option value="five">Five</option> 
-        </select>
+    <label for="example-email-input" class="form-control-label">Linea</label>
+        <input class="form-control" type="text" value="{{old('linea')}}" id="linea" required>
 
+ 
     </div>
     <div class="form-group">
         <label for="example-tel-input" class="form-control-label">NUMERO INTERNO</label>
-        <input class="form-control" type="tel" value="40-(770)-888-444" id="example-tel-input">
+        <input class="form-control" type="text" value="{{old('nroInterno')}}" id="nroInterno" required>
     </div>
     <div class="form-group">
         <label for="example-password-input" class="form-control-label">FECHA ASIGNACION</label>
-        <input class="form-control" type="datetime-local" value="2018-11-23T10:30:00" id="example-datetime-local-input">
+        <input class="form-control" type="datetime-local" value="fecha_asignacion" id="example-datetime-local-input" >
     </div>
     <div class="form-group">
         <label for="example-number-input" class="form-control-label">FECHA BAJA</label>
-        <input class="form-control" type="datetime-local" value="2018-11-23T10:30:00" id="example-datetime-local-input">
+        <input class="form-control" type="datetime-local" value="fecha_baja" id="example-datetime-local-input" >
+    </div>
+    <div class="form-group">
+        <label for="example-datetime-local-input" class="form-control-label">Foto</label>
+        <input class="form-control" type="text" value="{{old('foto')}}" id="foto" required>
     </div>
     <div class="form-group">
         <label for="example-datetime-local-input" class="form-control-label">ESTADO</label>
-        <input class="form-control" type="text" value="John Snow" id="example-text-input">
+        <input class="form-control" type="text" value="{{old('estado')}}" id="estado" required>
+    </div>
+
+    <div class="form-group">
+        <label for="example-datetime-local-input" class="form-control-label">Conductor</label>
+        <input class="form-control" type="text" value="{{old('conductor')}}" id="conductor" required>
     </div>
    
+    <label for="example-datetime-local-input" class="form-control-label">enviar</label>
+        <input class="form-control" type="submit" value="guardar">
+      
 </form>
 
-<button class="btn btn-icon btn-primary" type="button">
-	     
-           <a href="#" class="btn-inner--text">Guardar</a>
-
-            </button>
       </th>
-   
-  
+
 
     </tr>
    

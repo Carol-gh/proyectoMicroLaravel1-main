@@ -3,18 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Validator;
 use App\Models\Microbus;
 use App\Models\Linea;
 use App\Models\Conductor;
 
-class MicrobusController extends Controller
-{ 
-
+class MicrobusControllerA extends Controller
+{
+  
        public function index()
     {
         $microbus = Microbus::all();
@@ -26,44 +25,30 @@ class MicrobusController extends Controller
         return view('microbus.create');
     }
 
-    public function register(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'placa'=> 'required',
-            'nroInterno' => 'required',
-            'fecha_asignacion' => 'required|date',
-            'conductor_id' => 'required',
-            'linea_id' => 'required'
-        ]);
 
-        if ($validator->fails()) {
-            return response()->json($validator->errors()->toJson(), 400);
-        }
+    public function sendData(Request $request)
+    {  
 
-        $microbus = Microbus::create(
-            array_merge($validator->validate(),),
-        );
+        $microbus= new Microbus();
+        $microbus->placa = $request->input('placa');
+        $microbus->modelo = $request->input('modelo');
+        $microbus->nroInterno = $request->input('nroInterno');
+        $microbus->nro_asientos = $request->input('nro_asientos');
+        $microbus->fecha_asignacion = $request->input('fecha_asignacion');
+        $microbus->fecha_baja = $request->input('fecha_baja');
+        $microbus->foto = $request->input('foto');
+        $microbus->estado = $request->input('estado');
+        $microbus->linea = $request->input('linea');
+        $microbus->conductor = $request->input('conductor');
 
-        $image = $this->saveImage($request->foto, 'imagenes');
-        $microbus->foto = $image;
-        $microbus->modelo = $request->modelo;
-        $microbus->nro_asientos = $request->nro_asientos;
-        $microbus->fecha_baja = $request->fecha_baja;
-        $microbus->save();
-
-        return response()->json([
-            'message' => 'Microbus creado',
-            'microbus' => $microbus
-        ], 401);
-
-       
+   
+       return  $microbus;
     }
 
     public function getLineasAll() {
-        $lineas = new Linea();
-        $lineas = $lineas->getLineas();
 
-        return response()->json($lineas);
+        $lineas = Linea::all();
+        return $lineas; 
     }
 
     public function getBus($conductorId) {
@@ -84,4 +69,6 @@ class MicrobusController extends Controller
 
         return response()->json($microbus);
     }
+
+   
 }
