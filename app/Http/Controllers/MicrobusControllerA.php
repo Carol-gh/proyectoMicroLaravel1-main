@@ -29,7 +29,7 @@ class MicrobusControllerA extends Controller
     public function sendData(Request $request)
     {  $microbus=request()->except('_token');
         Microbus::insert($microbus);
-        return view('microbus.index',compact('microbus')); 
+        return  redirect()->route('microbus.index');
        
     }
 
