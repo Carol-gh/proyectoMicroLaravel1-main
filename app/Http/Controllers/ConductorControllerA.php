@@ -3,7 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Microbus;
+use App\Models\Linea;
+use App\Models\Conductor;
+use App\Models\MicroConductor;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use Carbon\Carbon;
 class ConductorControllerA extends Controller
 {
     /**
@@ -16,8 +22,8 @@ class ConductorControllerA extends Controller
         //
     }
     public function view()
-    {
-        return view('conductor.view');
+    {  $conductor = Conductor::all();
+        return view('conductor.view', compact('conductor'));
     }
 
     /**
@@ -28,6 +34,7 @@ class ConductorControllerA extends Controller
     public function create()
     {
         //
+        $conductor = Conductor::all();
         return view('conductor.create');
     }
 
@@ -37,10 +44,22 @@ class ConductorControllerA extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-        
+    public function sendData(Request $request)
+    {   $conductor=request()->except('_token');
+
+        $conductor['users_id'] = Auth::user()->id;
+        Conductor::insert($conductor);
+
+        $cond= Conductor::select("id")->where("users_id",Auth::user()->id)->first();
+        $microbus=Microbus::latest('id')->first();
+
+        $driving = new MicroConductor();
+        $driving->fecha = Carbon::now();
+        $driving->conductor_id =  $cond->id;
+        $driving->micro_id = $microbus->id;
+        $driving->save();
+      
+        return  redirect()->route('conductorMicrobus.view');
     }
 
     /**

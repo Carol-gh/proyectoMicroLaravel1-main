@@ -25,21 +25,27 @@
   <thead class="thead-dark">
     <tr>
       <th scope="col">codgo</th>
-      <th scope="col">nombre del chofer</th>
+      <th scope="col">cedula identidad</th>
+      <th scope="col">Fecha nacimiento</th>
       <th scope="col">telefono</th>
       <th scope="col">categoria</th>
       <th scope="col">acciones</th>
     </tr>
   </thead>
   <tbody>
+  @foreach($conductor as $conductor)   
     <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
+      <th scope="row">{{$conductor->id}}</th>
+      <td>{{$conductor->ci}}</td>
+      <td>{{$conductor->fecha_nacimiento}}</td>
+      <td>{{$conductor->telefono}}</td>
+      <td>{{$conductor->categoria_lic}}</td>
        <td class="px-6 py-4 text-center">              
             <button type="button" class="btn btn-outline-success"> ver o editar</button>
             <button type="button" class="btn btn-outline-danger">eliminar</button> </span> 
         </td>
     </tr>
+    @endforeach 
 </tbody>
 </table>
           

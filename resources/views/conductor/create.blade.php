@@ -14,44 +14,36 @@
   <tbody>
     <tr>
       <th scope="row">
-      <form>
-    <div class="form-group">
-        <label for="example-text-input" class="form-control-label">NOMBRE</label>
-        <input class="form-control" type="text" value="PK3HS" id="example-text-input">
+      <form action="{{route('conductorMicrobus.register') }}" method="POST" class="form-horizontal" enctype="multipart/form-data">
+      @csrf 
+      <div class="form-group">
+        <label for="example-text-input" class="form-control-label">CEDULA IDENTIDAD</label>
+        <input class="form-control"  name="ci" type="text" value="{{old('ci')}}" id="ci" required>
     </div>
     <div class="form-group">
-        <label for="example-search-input" class="form-control-label">SEXO</label>
-        <input class="form-control" type="search" value="20" id="example-search-input">
+        <label for="example-text-input" class="form-control-label">FECHA NACIMIENTO</label>
+        <input class="form-control" name ='fecha_nacimiento' type="datetime-local" value="{{old('fecha_nacimiento')}}" id="example-datetime-local-input" required>
     </div>
     <div class="form-group">
-        <label for="example-email-input" class="form-control-label">TELEFONO</label>
-        <input class="form-control" type="email" value="2015" id="example-email-input">
+        <label for="example-text-input" class="form-control-label">TELEFONO</label>
+        <input class="form-control" name="telefono" type="text" value="{{old('telefono')}}" id="telefono">
     </div>
     <div class="form-group">
-        <label for="example-url-input" class="form-control-label">CATEGORIA LICENCIA</label>
-        <input class="form-control" type="url" value="10" id="example-url-input">
+        <label for="eexample-text-input" class="form-control-label">CATEGORIA LICENCIA</label>
+        <input class="form-control" name="categoria_lic" type="text" value="{{old('categoria_lic')}}" id="categoria_lic" required>
     </div>
     <div class="form-group">
-        <label for="example-tel-input" class="form-control-label">ASIGNAR LINEA</label>
-        <input class="form-control" type="tel" value="40-(770)-888-444" id="example-tel-input">
-    </div>
-    <div class="form-group">
-        <label for="example-password-input" class="form-control-label">TIEMPO RECORRIDO</label>
-        <input class="form-control" type="datetime-local" value="2018-11-23T10:30:00" id="example-datetime-local-input">
+        <label for="example-tel-input" class="form-control-label">FOTO</label>
+        <input class="form-control"  name="foto" type="text" value="{{old('foto')}}" id="foto">
     </div>
    
-</form>
 
-<button class="btn btn-icon btn-primary" type="button">
-	     
-           <a href="#" class="btn-inner--text">Guardar</a>
+        <label for="example-datetime-local-input" class="form-control-label">enviar</label>
+        <input class="form-control" type="submit" value="guardar">   
 
-            </button>
-      </th>
-   
-  
-
-    </tr>
+      </form>
+   </th>
+   </tr>
    
   </tbody>
 </table>

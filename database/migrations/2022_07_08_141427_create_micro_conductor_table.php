@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('micro_conductor', function (Blueprint $table) {
             $table->id();
-            $table->date('fecha');
+            $table->string('fecha');
             $table->unsignedBigInteger('conductor_id');
             $table->unsignedBigInteger('micro_id');
             $table->timestamps();

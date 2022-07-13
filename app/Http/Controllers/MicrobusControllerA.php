@@ -21,34 +21,21 @@ class MicrobusControllerA extends Controller
     }
     
     public function create()
-    {
+    {  $microbus = Microbus::all();
         return view('microbus.create');
     }
 
 
     public function sendData(Request $request)
-    {  
-
-        $microbus= new Microbus();
-        $microbus->placa = $request->input('placa');
-        $microbus->modelo = $request->input('modelo');
-        $microbus->nroInterno = $request->input('nroInterno');
-        $microbus->nro_asientos = $request->input('nro_asientos');
-        $microbus->fecha_asignacion = $request->input('fecha_asignacion');
-        $microbus->fecha_baja = $request->input('fecha_baja');
-        $microbus->foto = $request->input('foto');
-        $microbus->estado = $request->input('estado');
-        $microbus->linea = $request->input('linea');
-        $microbus->conductor = $request->input('conductor');
-
-   
-       return  $microbus;
+    {  $microbus=request()->except('_token');
+        Microbus::insert($microbus);
+        return view('microbus.index',compact('microbus')); 
+       
     }
 
     public function getLineasAll() {
-
         $lineas = Linea::all();
-        return $lineas; 
+        return view('microbus.create',compact('lineas')); 
     }
 
     public function getBus($conductorId) {

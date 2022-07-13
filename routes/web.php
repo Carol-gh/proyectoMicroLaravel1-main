@@ -36,11 +36,13 @@ Route::group(['middleware' => 'auth'], function () {
 
 });
 
-    //conductor microbus
+    //conductor 
     Route::group(['prefix' => 'Conductor'], function () {
-        Route::get('/conductorMicrobus', [App\Http\Controllers\ConductorController::class,'view'])->name('conductorMicrobus.view');
-		Route::get('/crearConductor', [App\Http\Controllers\ConductorController::class,'create'])->name('conductorMicrobus.create');
-    });
+        Route::get('/conductorMicrobus', [App\Http\Controllers\ConductorControllerA::class,'view'])->name('conductorMicrobus.view');
+		Route::get('/crearConductor', [App\Http\Controllers\ConductorControllerA::class,'create'])->name('conductorMicrobus.create');
+    Route::post('/registerConductor', [App\Http\Controllers\ConductorControllerA::class,'sendData'])->name('conductorMicrobus.register');
+
+  });
 	  // microbus
 	  Route::group(['prefix' => 'Microbus'], function () {
    Route::get('/Microbus', [App\Http\Controllers\MicrobusControllerA::class,'index'])->name('microbus.index');

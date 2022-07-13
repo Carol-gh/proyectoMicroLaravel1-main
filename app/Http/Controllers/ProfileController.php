@@ -51,4 +51,6 @@ class ProfileController extends Controller
 
         return back()->withPasswordStatus(__('Password successfully updated.'));
     }
+
+    
 }

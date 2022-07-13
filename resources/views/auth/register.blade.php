@@ -75,6 +75,22 @@
                                     <input class="form-control" placeholder="{{ __('Confirm Password') }}" type="password" name="password_confirmation" required>
                                 </div>
                             </div>
+                            
+                            <div class="form-group">
+                                <div class="input-group input-group-alternative">
+                                     <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="bi bi-exclude"></i></span>
+                                    </div>
+
+                                    <<!-- select class="form-select" name="role name" id="role id">
+                                    <option value="micro">1</option> 
+                                    <option value="micro">2</option> 
+                                    </select>
+ -->
+                                    <input class="form-control" placeholder="{{('linea') }}" type="text" name="linea" >
+                                </div>
+                            </div>
+
                             <div class="text-muted font-italic">
                                 <small>{{ __('password strength') }}: <span class="text-success font-weight-700">{{ __('strong') }}strong</span></small>
                             </div>

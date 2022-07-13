@@ -25,7 +25,7 @@
     <tr>
       <th scope="col">ID</th>
       <th scope="col">Placa</th>
-      <th scope="col">Asientos</th>
+      <th scope="col">tiempo</th>
       <th scope="col">Linea</th>
       <th scope="col">Modelo</th>
       <th scope="col center">Accion</th>
@@ -34,11 +34,11 @@
   <tbody>
   @foreach($microbus as $microbus)
   <tr>
-      <th scope="row">$microbus->id</th>
-      <td>$microbus->placa</td>
-      <td>$microbus->asientos</td>
-      <td>$microbus->linea</td>
-      <td>$microbus->modelo</td>
+      <th scope="row">{{$microbus->id}}</th>
+      <td>{{$microbus->placa}}</td>
+      <td>{{$microbus->linea->tiempo}}</td>
+      <td>{{$microbus->linea->nombre}}</td>
+      <td>{{$microbus->modelo}}</td>
       <td class="px-6 py-4 text-center">              
             <button type="button" class="btn btn-outline-success"> ver o editar</button>
             <button type="button" class="btn btn-outline-danger">eliminar</button> </span> 

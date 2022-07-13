@@ -15,50 +15,47 @@
     <tr>
       <th scope="row">
       <form action="{{route('microbus.register') }}" method="POST" class="form-horizontal" enctype="multipart/form-data">
-     @csrf       
+     @csrf 
+     <div class="form-group">
+        <label for="example-datetime-local-input" class="form-control-label">FOTO</label>
+        <input class="form-control" name = 'foto' type="text" value="{{old('foto')}}" id="foto" required>
+    </div>      
     <div class="form-group">
         <label for="example-text-input" class="form-control-label">PLACA</label>
-        <input class="form-control" type="text" value="{{old('placa')}}" id="placa" required>
-    </div>
-    <div class="form-group">
-        <label for="example-search-input" class="form-control-label">ASIENTOS</label>
-        <input class="form-control" type="text" value="{{old('nro_asientos')}}" id="nro_asientos" required>
+        <input class="form-control" name ='placa' type="text" value="{{old('placa')}}" id="placa" required>
     </div>
     <div class="form-group">
         <label for="example-email-input" class="form-control-label">MODELO</label>
-        <input class="form-control" type="text" value="{{old('modelo')}}" id="modelo" required>
+        <input class="form-control" name ='modelo' type="text" value="{{old('modelo')}}" id="modelo" required>
     </div>
     <div class="form-group">
-    <label for="example-email-input" class="form-control-label">Linea</label>
-        <input class="form-control" type="text" value="{{old('linea')}}" id="linea" required>
-
- 
+        <label for="example-search-input" class="form-control-label">ASIENTOS</label>
+        <input class="form-control" name ='nro_asientos' type="text" value="{{old('nro_asientos')}}" id="nro_asientos" required>
     </div>
     <div class="form-group">
         <label for="example-tel-input" class="form-control-label">NUMERO INTERNO</label>
-        <input class="form-control" type="text" value="{{old('nroInterno')}}" id="nroInterno" required>
+        <input class="form-control" name ='nroInterno' type="text" value="{{old('nroInterno')}}" id="nroInterno" required>
     </div>
     <div class="form-group">
         <label for="example-password-input" class="form-control-label">FECHA ASIGNACION</label>
-        <input class="form-control" type="datetime-local" value="fecha_asignacion" id="example-datetime-local-input" >
+        <input class="form-control" name ='fecha_asignacion' type="datetime-local" value="fecha_asignacion" id="example-datetime-local-input" >
     </div>
     <div class="form-group">
         <label for="example-number-input" class="form-control-label">FECHA BAJA</label>
-        <input class="form-control" type="datetime-local" value="fecha_baja" id="example-datetime-local-input" >
-    </div>
-    <div class="form-group">
-        <label for="example-datetime-local-input" class="form-control-label">Foto</label>
-        <input class="form-control" type="text" value="{{old('foto')}}" id="foto" required>
+        <input class="form-control" name='fecha_baja' type="datetime-local" value="fecha_baja" id="example-datetime-local-input" >
     </div>
     <div class="form-group">
         <label for="example-datetime-local-input" class="form-control-label">ESTADO</label>
-        <input class="form-control" type="text" value="{{old('estado')}}" id="estado" required>
+        <input class="form-control" name= 'estado' type="text" value="{{old('estado')}}" id="estado" required>
     </div>
-
     <div class="form-group">
-        <label for="example-datetime-local-input" class="form-control-label">Conductor</label>
-        <input class="form-control" type="text" value="{{old('conductor')}}" id="conductor" required>
+    <label for="example-email-input" class="form-control-label">Linea</label>
+   
+    <input class="form-control" name= 'linea_id' type="text" value="{{old('linea_id')}}" id="linea" required>
+   
     </div>
+  
+  
    
     <label for="example-datetime-local-input" class="form-control-label">enviar</label>
         <input class="form-control" type="submit" value="guardar">

@@ -10,7 +10,7 @@ use App\Models\Conductor;
 
 class ConductorController extends Controller
 {
-    /* public function register(Request $request)
+     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'ci' => 'required',
@@ -63,5 +63,5 @@ class ConductorController extends Controller
             'message' => 'Conductor creado',
             'conductor' => $conductor
         ], 401);
-    } */
+    } 
 }
