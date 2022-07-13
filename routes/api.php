@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('login', 'App\Http\Controllers\API\UserController@login');
 Route::post('register', 'App\Http\Controllers\API\UserController@register');
+Route::get('showbuses', 'App\Http\Controllers\API\RecorridoController@getCoordinates');
+
 Route::post('createDriver', 'App\Http\Controllers\API\ConductorController@register');
 
 Route::get('lineas', 'App\Http\Controllers\API\LineaController@getLineasAll');

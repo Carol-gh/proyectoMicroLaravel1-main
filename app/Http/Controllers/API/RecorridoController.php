@@ -93,11 +93,45 @@ class RecorridoController extends Controller
         $comment->recorrido_id = $recorridoId;
         $comment->save();
 
+        $track->estado = 'desactivo';
+        $track->save();
+
         return response()->json([
             'message' => 'Salir recorrido exitoso.',
             'comentario' => $comment
         ], 200);
     }
 
+    public function getCoordinates(Request $request)
+    {
+        $linea = $request->linea;
+        $tipo = $request->tipo;
+        $now = Carbon::now();
+        $fechaActual = $now->format('Y-m-d');
 
+        $recorridos = Recorrido::where([
+            'tipo' => $tipo,
+            'fecha' => $fechaActual,
+            'estado' => 'activo',
+        ])->get();
+
+        $list = [];
+
+        foreach ($recorridos as $recorrido) {
+            $driving = MicroConductor::where(['id' => $recorrido->drive_id])->first();
+            $micro = Micro::where(['id' => $driving->micro_id])->first();
+            $lineaMicro = Linea::where(['id' => $micro->linea_id])->first();
+            $item = new \stdClass();
+            if ($linea == $lineaMicro->nombre) {
+                $item->id = $recorrido->id;
+                $item->latitud = $recorrido->latitud;
+                $item->longitud = $recorrido->longitud;
+                $item->tipo = $recorrido->tipo;
+                $item->interno = $micro->nroInterno;
+            }
+            array_push($list, $item);
+        }
+
+        return response()->json($list, 200);
+    }
 }
