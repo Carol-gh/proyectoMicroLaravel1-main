@@ -12,6 +12,7 @@ class Comment extends Model
     protected $fillable = [
         'motivo',
         'horaRetiro',
+        'tiempo',
         'recorrido_id',
     ];
 

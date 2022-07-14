@@ -75,7 +75,7 @@
                                     <input class="form-control" placeholder="{{ __('Confirm Password') }}" type="password" name="password_confirmation" required>
                                 </div>
                             </div>
-                            
+
                             <div class="form-group">
                                 <div class="input-group input-group-alternative">
                                      <div class="input-group-prepend">
@@ -83,8 +83,8 @@
                                     </div>
 
                                     <<!-- select class="form-select" name="role name" id="role id">
-                                    <option value="micro">1</option> 
-                                    <option value="micro">2</option> 
+                                    <option value="micro">1</option>
+                                    <option value="micro">2</option>
                                     </select>
  -->
                                     <input class="form-control" placeholder="{{('linea') }}" type="text" name="linea" >

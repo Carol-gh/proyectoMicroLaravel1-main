@@ -22,19 +22,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-
-        $this->call([UsersTableSeeder::class]);
-        
         $this->call(LineaSeeder::class);
         $this->call(RutaSeeder::class);
         $this->call(Linea01Seeder::class);
         $this->call(Linea02Seeder::class);
         $this->call(Linea11Seeder::class);
         $this->call(Linea16Seeder::class);
-        $this->call(UserSeeder::class);
-        $this->call(ConductorSeeder::class);
+        $this->call([UsersTableSeeder::class]);
         $this->call(MicroSeeder::class);
-        $this->call(MicrodriverSeeder::class);
-
     }
 }

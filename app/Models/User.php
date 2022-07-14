@@ -22,7 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'linea',
+        'linea_id',
     ];
 
     /**
@@ -46,5 +46,9 @@ class User extends Authenticatable
 
     public function conductor() {
         return $this->hasOne(Conductor::class, 'users_id');
+    }
+
+    public function linea() {
+        return $this->belongsTo(Linea::class, 'linea_id');
     }
 }

@@ -91,15 +91,17 @@ class MicrobusController extends Controller
         ], 200);
     }
 
-    public function getBuses(Request $request) {
+    public function getBuses(Request $request, $linea) {
         $micros = new Microbus();
-        $micros = $micros->getBusesLineaX($request->linea);
+        $micros = $micros->getBusesLineaX($linea);
+
+        $linea = Linea::where(['id' => $linea])->first();
 
         $buses = [];
 
         foreach ($micros as $micro) {
             $bus = new \stdClass();
-            $bus->linea = $request->linea;
+            $bus->linea = $linea->nombre;
             $bus->id = $micro->id;
             $bus->placa = $micro->placa;
             $bus->modelo = $micro->modelo;

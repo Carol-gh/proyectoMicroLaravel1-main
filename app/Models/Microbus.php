@@ -19,18 +19,9 @@ class Microbus extends Model
         'fecha_asignacion',
         'fecha_baja',
         'estado',
-        'linea_id'
     ];
-
-    public function linea() {
-        return $this->belongsTo(Linea::class, 'linea_id');
-    }
 
     public function drives() {
         return $this->hasMany(MicroConductor::class, 'micro_id');
-    }
-
-    public function getBusesLineaX($linea) {
-        return $this->where(['linea_id' => $linea])->get();
     }
 }
