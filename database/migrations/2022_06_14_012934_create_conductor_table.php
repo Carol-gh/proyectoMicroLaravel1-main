@@ -15,6 +15,9 @@ return new class extends Migration
     {
         Schema::create('conductor', function (Blueprint $table) {
             $table->id();
+            $table->string('nombre');
+            $table->string('email')->unique();
+            $table->string('password');
             $table->string('ci')->unique();
             $table->string('fecha_nacimiento');
             $table->integer('telefono');

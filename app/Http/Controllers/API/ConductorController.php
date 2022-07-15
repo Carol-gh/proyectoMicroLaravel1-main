@@ -10,34 +10,6 @@ use App\Models\Conductor;
 
 class ConductorController extends Controller
 {
-     public function register(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'ci' => 'required',
-            'fecha_nacimiento'=> 'required|date',
-            'categoria_lic' => 'required',
-            'telefono' => 'required',
-            'users_id' => 'required'
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->errors()->toJson(), 400);
-        }
-
-        $conductor = Conductor::create(
-            array_merge($validator->validate(),),
-        );
-
-        $image = $this->saveImage($request->foto, 'imagenes');
-        $conductor->foto = $image;
-        $conductor->save();
-
-        return response()->json([
-            'message' => 'Conductor creado',
-            'conductor' => $conductor
-        ], 401);
-    }
-
     public function createDriver(Request $request)
     {
         $userId = auth()->user()->id;
@@ -63,5 +35,5 @@ class ConductorController extends Controller
             'message' => 'Conductor creado',
             'conductor' => $conductor
         ], 401);
-    } 
+    }
 }

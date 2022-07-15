@@ -44,8 +44,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function conductor() {
-        return $this->hasOne(Conductor::class, 'users_id');
+    public function conductores() {
+        return $this->hasMany(Conductor::class, 'users_id');
     }
 
     public function linea() {

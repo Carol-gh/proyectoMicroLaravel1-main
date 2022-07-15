@@ -16,12 +16,14 @@ class Recorrido extends Model
         'latitud',
         'longitud',
         'tiempo',
+        'retraso',
         'tipo',
-        'drive_id'
+        'estado',
+        'conductor_id'
     ];
 
-    public function micro() {
-        return $this->belongsTo(MicroConductor::class, 'drive_id');
+    public function conductor() {
+        return $this->belongsTo(Conductor::class, 'conductor_id');
     }
 
     public function comentario() {

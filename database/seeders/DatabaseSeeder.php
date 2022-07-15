@@ -29,6 +29,6 @@ class DatabaseSeeder extends Seeder
         $this->call(Linea11Seeder::class);
         $this->call(Linea16Seeder::class);
         $this->call([UsersTableSeeder::class]);
-        $this->call(MicroSeeder::class);
+        //$this->call(MicroSeeder::class);
     }
 }
