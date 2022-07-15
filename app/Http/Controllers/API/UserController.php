@@ -19,6 +19,7 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|string|email|max:100|unique:users',
             'password' => 'required|string|min:6',
+            'linea_id' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -29,9 +30,6 @@ class UserController extends Controller
             $validator->validate(),
             ['password' => bcrypt($request->password)]
         ));
-
-        $user->linea = $request->linea;
-        $user->save();
 
         return response([
             'user' => $user,

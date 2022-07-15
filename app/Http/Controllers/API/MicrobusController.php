@@ -16,12 +16,16 @@ class MicrobusController extends Controller
 {
     public function createBus(Request $request)
     {
+        $userId = auth()->user()->id;
+        $conductor = Conductor::where(['users_id' => $userId])->first();
+        $now = Carbon::now();
+        $fecha_actual = $now->format('Y-m-d');
+
         $validator = Validator::make($request->all(), [
             'placa'=> 'required',
             'nroInterno' => 'required',
             'modelo' => 'required',
             'nro_asientos' => 'required',
-            'linea_id' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -38,10 +42,54 @@ class MicrobusController extends Controller
         $microbus->fecha_baja = $request->fecha_baja;
         $microbus->save();
 
+        $driving = new MicroConductor();
+        $driving->fecha = $fecha_actual;
+        $driving->conductor_id = $conductor->id;
+        $driving->micro_id = $microbus->id;
+        $driving->save();
+
+        $microbus->estado = 'Ocupado';
+        $microbus->save();
+
         return response()->json([
             'message' => 'Microbus creado',
-            'microbus' => $microbus
+            'microbus' => $microbus,
+            'conduce' => $driving
         ], 401);
+    }
+
+    public function getBus() {
+        $userId = auth()->user()->id;
+        $user = User::where(['id' => $userId])->first();
+        $linea = Linea::where(['id' => $user->linea_id])->first();
+        $conductor = Conductor::where(['users_id' => $userId])->first();
+
+        //Obtener la lista de los micros conducidos por ese usuario
+        $drivings = new MicroConductor();
+        $drivings = $drivings->getBusesDrive($conductor->id);
+
+        $buses = [];
+
+        foreach ($drivings as $driving) {
+            $micro = Microbus::where(['id' => $driving->micro_id])->first();
+
+            $bus = new \stdClass();
+            $bus->conductor = $user->name;
+            $bus->linea = $linea->nombre;
+            $bus->id = $micro->id;
+            $bus->placa = $micro->placa;
+            $bus->modelo = $micro->modelo;
+            $bus->interno = $micro->nroInterno;
+            $bus->capacidad = $micro->nro_asientos;
+            $bus->foto = $micro->foto;
+            $bus->driving = $driving->id;
+
+            array_push($buses, $bus);
+        }
+
+        return response([
+            'bus' => $buses
+        ], 200);
     }
 
     /**
@@ -50,6 +98,7 @@ class MicrobusController extends Controller
     public function getBusToday() {
         $userId = auth()->user()->id;
         $user = User::where(['id' => $userId])->first();
+        $linea = Linea::where(['id' => $user->linea_id])->first();
         $conductor = Conductor::where(['users_id' => $userId])->first();
         $conductorId = $conductor->id;
 
@@ -69,7 +118,6 @@ class MicrobusController extends Controller
              */
             if ($fecha_actual == $driving->fecha) {
                 $micro = Microbus::where(['id' => $driving->micro_id])->first();
-                $linea = Linea::where(['id' => $micro->linea_id])->first();
 
                 $bus = new \stdClass();
                 $bus->conductor = $user->name;
@@ -84,32 +132,6 @@ class MicrobusController extends Controller
 
                 array_push($buses, $bus);
             }
-        }
-
-        return response([
-            'bus' => $buses
-        ], 200);
-    }
-
-    public function getBuses(Request $request, $linea) {
-        $micros = new Microbus();
-        $micros = $micros->getBusesLineaX($linea);
-
-        $linea = Linea::where(['id' => $linea])->first();
-
-        $buses = [];
-
-        foreach ($micros as $micro) {
-            $bus = new \stdClass();
-            $bus->linea = $linea->nombre;
-            $bus->id = $micro->id;
-            $bus->placa = $micro->placa;
-            $bus->modelo = $micro->modelo;
-            $bus->interno = $micro->nroInterno;
-            $bus->capacidad = $micro->nro_asientos;
-            $bus->foto = $micro->foto;
-
-            array_push($buses, $bus);
         }
 
         return response([

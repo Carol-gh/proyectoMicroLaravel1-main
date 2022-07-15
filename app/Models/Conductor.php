@@ -10,6 +10,9 @@ class Conductor extends Model
 
     protected $table = 'conductor';
     protected $fillable = [
+        'nombre',
+        'email',
+        'password',
         'ci',
         'fecha_nacimiento',
         'telefono',
@@ -22,7 +25,11 @@ class Conductor extends Model
         return $this->belongsTo(User::class, 'users_id');
     }
 
-    public function drives() {
-        return $this->hasMany(MicroConductor::class, 'conductor_id');
+    public function micro() {
+        return $this->hasOne(Microbus::class, 'conductor_id');
+    }
+
+    public function recorridos() {
+        return $this->hasMany(Recorrido::class, 'conductor_id');
     }
 }

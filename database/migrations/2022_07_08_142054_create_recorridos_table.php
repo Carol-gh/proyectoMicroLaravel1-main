@@ -21,15 +21,15 @@ return new class extends Migration
             $table->double('latitud')->nullable();
             $table->double('longitud')->nullable();
             $table->string('tiempo')->nullable();
-            $table->string('retraso')->nullable();
+            $table->string('retraso')->default('0');
             $table->string('tipo');
             $table->string('estado')->default('activo');
-            $table->unsignedBigInteger('drive_id');
+            $table->unsignedBigInteger('conductor_id');
             $table->timestamps();
 
             $table->softDeletes();
 
-            $table->foreign('drive_id')->on('micro_conductor')->references('id')
+            $table->foreign('conductor_id')->on('conductor')->references('id')
             ->onDelete('cascade');
         });
     }
