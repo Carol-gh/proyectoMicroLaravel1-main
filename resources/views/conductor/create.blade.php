@@ -32,11 +32,18 @@
         <label for="eexample-text-input" class="form-control-label">CATEGORIA LICENCIA</label>
         <input class="form-control" name="categoria_lic" type="text" value="{{old('categoria_lic')}}" id="categoria_lic" required>
     </div>
-    <div class="form-group">
-        <label for="example-tel-input" class="form-control-label">FOTO</label>
-        <input class="form-control"  name="foto" type="text" value="{{old('foto')}}" id="foto">
-    </div>
-   
+
+    <br>
+        <div class="row">
+                <label for="nombre" class="col-sm-2 col-form-label">FOTO</label>
+                            <div class="col-sm-7">
+                                <input type="file" name="foto" class="form-control"
+                               id="exampleInputEmail" placeholder="Seleccione una imagen..."
+                                     accept=".jpg, .jpeg, .png" value="{{ old('foto') }}">
+                                    </div>
+
+                                </div>
+                                <br>
 
         <label for="example-datetime-local-input" class="form-control-label">enviar</label>
         <input class="form-control" type="submit" value="guardar">   

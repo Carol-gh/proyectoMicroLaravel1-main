@@ -48,14 +48,6 @@
         <label for="example-datetime-local-input" class="form-control-label">ESTADO</label>
         <input class="form-control" name= 'estado' type="text" value="{{old('estado')}}" id="estado" required>
     </div>
-    <div class="form-group">
-    <label for="example-email-input" class="form-control-label">Linea</label>
-   
-    <input class="form-control" name= 'linea_id' type="text" value="{{old('linea_id')}}" id="linea" required>
-   
-    </div>
-  
-  
    
     <label for="example-datetime-local-input" class="form-control-label">enviar</label>
         <input class="form-control" type="submit" value="guardar">

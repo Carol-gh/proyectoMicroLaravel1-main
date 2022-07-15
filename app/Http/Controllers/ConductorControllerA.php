@@ -10,6 +10,7 @@ use App\Models\MicroConductor;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 class ConductorControllerA extends Controller
 {
     /**
@@ -32,10 +33,14 @@ class ConductorControllerA extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        //
-        $conductor = Conductor::all();
-        return view('conductor.create');
+    {  $user_id= Auth::user()->id;
+        $conductor = DB::table('users')
+        ->join('conductor', 'users.id', '=', 'conductor.users_id')
+        ->join('linea','users.linea_id','=','linea.id') 
+        ->select('conductor.*', 'linea.nombre')
+        ->where('users.id',$user_id)
+       ->get();
+        return view('conductor.create', compact('conductor'));
     }
 
     /**

@@ -34,24 +34,26 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('table-list', function () {return view('pages.tables');})->name('table');
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
 
+
+ //conductor
+ Route::group(['prefix' => 'Conductor'], function () {
+  Route::get('/conductorMicrobus', [App\Http\Controllers\ConductorControllerA::class,'view'])->name('conductorMicrobus.view');
+Route::get('/crearConductor', [App\Http\Controllers\ConductorControllerA::class,'create'])->name('conductorMicrobus.create');
+Route::post('/registerConductor', [App\Http\Controllers\ConductorControllerA::class,'sendData'])->name('conductorMicrobus.register');
+
+});
+// microbus
+Route::group(['prefix' => 'Microbus'], function () {
+Route::get('/Microbus', [App\Http\Controllers\MicrobusControllerA::class,'index'])->name('microbus.index');
+Route::get('/crearMicrobus', [App\Http\Controllers\MicrobusControllerA::class,'create'])->name('microbus.create');
+Route::post('/registrarMicrobus', [App\Http\Controllers\MicrobusControllerA::class,'sendData'])->name('microbus.register');
+Route::get('/lineas', [App\Http\Controllers\MicrobusControllerA::class,'getLineasAll'])->name('microbus.lineas');
+
 });
 
-    //conductor
-    Route::group(['prefix' => 'Conductor'], function () {
-        Route::get('/conductorMicrobus', [App\Http\Controllers\ConductorControllerA::class,'view'])->name('conductorMicrobus.view');
-		Route::get('/crearConductor', [App\Http\Controllers\ConductorControllerA::class,'create'])->name('conductorMicrobus.create');
-    Route::post('/registerConductor', [App\Http\Controllers\ConductorControllerA::class,'sendData'])->name('conductorMicrobus.register');
+});
 
-  });
-	  // microbus
-	  Route::group(['prefix' => 'Microbus'], function () {
-   Route::get('/Microbus', [App\Http\Controllers\MicrobusControllerA::class,'index'])->name('microbus.index');
-  Route::get('/crearMicrobus', [App\Http\Controllers\MicrobusControllerA::class,'create'])->name('microbus.create');
-  Route::post('/registrarMicrobus', [App\Http\Controllers\MicrobusControllerA::class,'sendData'])->name('microbus.register');
-  Route::get('/lineas', [App\Http\Controllers\MicrobusControllerA::class,'getLineasAll'])->name('microbus.lineas');
-
-
-    });
+   
 
 
 

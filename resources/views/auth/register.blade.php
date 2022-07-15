@@ -87,7 +87,7 @@
                                     <option value="micro">2</option>
                                     </select>
  -->
-                                    <input class="form-control" placeholder="{{('linea') }}" type="text" name="linea" >
+                                    <input class="form-control" placeholder="{{('linea_id') }}" type="text" name="linea_id" >
                                 </div>
                             </div>
 

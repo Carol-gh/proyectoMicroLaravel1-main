@@ -36,8 +36,8 @@
   <tr>
       <th scope="row">{{$microbus->id}}</th>
       <td>{{$microbus->placa}}</td>
-      <td>{{$microbus->linea->tiempo}}</td>
-      <td>{{$microbus->linea->nombre}}</td>
+      <td>{{$microbus}}</td>
+      <td>{{$microbus}}</td>
       <td>{{$microbus->modelo}}</td>
       <td class="px-6 py-4 text-center">              
             <button type="button" class="btn btn-outline-success"> ver o editar</button>

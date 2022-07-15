@@ -24,10 +24,10 @@
      <table class="table">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">codgo</th>
+      <th scope="col">codigo</th>
       <th scope="col">cedula identidad</th>
-      <th scope="col">Fecha nacimiento</th>
-      <th scope="col">telefono</th>
+      <th scope="col">foto</th>
+      <th scope="col">linea</th>
       <th scope="col">categoria</th>
       <th scope="col">acciones</th>
     </tr>
@@ -37,8 +37,8 @@
     <tr>
       <th scope="row">{{$conductor->id}}</th>
       <td>{{$conductor->ci}}</td>
-      <td>{{$conductor->fecha_nacimiento}}</td>
-      <td>{{$conductor->telefono}}</td>
+      <td>{{$conductor->foto}}</td>
+      <td>{{$conductor->nombre}}</td>
       <td>{{$conductor->categoria_lic}}</td>
        <td class="px-6 py-4 text-center">              
             <button type="button" class="btn btn-outline-success"> ver o editar</button>
