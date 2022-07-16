@@ -16,8 +16,8 @@ class MicrobusControllerA extends Controller
   
        public function index()
     {
-        $microbus = Microbus::all();
-        return view('microbus.index',compact('microbus'));
+        $datos['microbus'] = Microbus::paginate(5);
+        return view('microbus.index',$datos);
     }
     
     public function create()
@@ -28,6 +28,9 @@ class MicrobusControllerA extends Controller
 
     public function sendData(Request $request)
     {  $microbus=request()->except('_token');
+        if($request->hasfile('foto')){
+            $microbus['foto'] = $request->file('foto')->store('uploads','public');
+        }
         Microbus::insert($microbus);
         return  redirect()->route('microbus.index');
        

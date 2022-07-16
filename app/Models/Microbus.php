@@ -19,10 +19,7 @@ class Microbus extends Model
         'fecha_asignacion',
         'fecha_baja',
         'estado',
-        'conductor_id'
     ];
 
-    public function conductor() {
-        return $this->belongsTo(Conductor::class, 'conductor_id');
-    }
+
 }

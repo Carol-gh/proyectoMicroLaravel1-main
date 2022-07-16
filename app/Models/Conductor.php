@@ -18,7 +18,8 @@ class Conductor extends Model
         'telefono',
         'categoria_lic',
         'foto',
-        'users_id'
+        'users_id',
+        'microbus_id'
     ];
 
     public function user() {
@@ -26,7 +27,7 @@ class Conductor extends Model
     }
 
     public function micro() {
-        return $this->hasOne(Microbus::class, 'conductor_id');
+        return $this->hasOne(Microbus::class, 'microbus_id');
     }
 
     public function recorridos() {

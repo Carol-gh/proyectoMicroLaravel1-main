@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 class ConductorControllerA extends Controller
 {
     /**
@@ -22,6 +23,7 @@ class ConductorControllerA extends Controller
     {
         //
     }
+    
     public function view()
     {  $conductor = Conductor::all();
         return view('conductor.view', compact('conductor'));
@@ -51,20 +53,13 @@ class ConductorControllerA extends Controller
      */
     public function sendData(Request $request)
     {   $conductor=request()->except('_token');
-
         $conductor['users_id'] = Auth::user()->id;
+        if($request->hasfile('foto')){
+            $conductor['foto'] = $request->file('foto')->store('uploads','public');
+        }
         Conductor::insert($conductor);
-
-        $cond= Conductor::select("id")->where("users_id",Auth::user()->id)->first();
-        $microbus=Microbus::latest('id')->first();
-
-        $driving = new MicroConductor();
-        $driving->fecha = Carbon::now();
-        $driving->conductor_id =  $cond->id;
-        $driving->micro_id = $microbus->id;
-        $driving->save();
-      
-        return  redirect()->route('conductorMicrobus.view');
+   
+       return  redirect()->route('conductorMicrobus.view'); 
     }
 
     /**
@@ -107,8 +102,13 @@ class ConductorControllerA extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy(Conductor $conductor)
+    {  echo $conductor->id;
+       if (!is_null($conductor->foto)) {    
+          Storage::disk('public')->delete($conductor->foto);
+        }
+
+       $conductor->delete();
+       return  redirect()->route('conductorMicrobus.view'); 
     }
 }

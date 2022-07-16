@@ -37,12 +37,23 @@
     <tr>
       <th scope="row">{{$conductor->id}}</th>
       <td>{{$conductor->ci}}</td>
-      <td>{{$conductor->foto}}</td>
+      <td>
+      <div class="img-container">
+          <img style="width: 25%" src="{{ asset('storage'.'/'.$conductor->foto) }}" alt="...">
+      </div>
+      </td>
       <td>{{$conductor->nombre}}</td>
       <td>{{$conductor->categoria_lic}}</td>
        <td class="px-6 py-4 text-center">              
-            <button type="button" class="btn btn-outline-success"> ver o editar</button>
-            <button type="button" class="btn btn-outline-danger">eliminar</button> </span> 
+      
+       <button type="button" class="btn btn-outline-success"> ver o editar</button>
+    
+        <form  action="{{ url('Conductor/eliminarConductor',$conductor->id) }}" method="POST">
+            @csrf
+            {{ method_field('DELETE') }}
+            <input class="btn btn-outline-danger" type="submit" onclick="return confirm('¿quieres borrar el conductor?')" value="Borrar">
+          </form>
+            
         </td>
     </tr>
     @endforeach 
