@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('ci')->unique();
             $table->string('fecha_nacimiento');
-            $table->integer('telefono');
+            $table->string('telefono');
             $table->string('categoria_lic');
             $table->string('foto')->nullable();
             $table->unsignedBigInteger('users_id');

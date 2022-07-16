@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
 use App\Models\Microbus;
-use App\Models\MicroConductor;
 use App\Models\Linea;
 use App\Models\Conductor;
 use App\Models\User;
@@ -58,99 +57,24 @@ class MicrobusController extends Controller
         ], 401);
     }
 
-    public function getBus() {
-        $userId = auth()->user()->id;
-        $user = User::where(['id' => $userId])->first();
+    public function getBus($id) {
+        $conductor = Conductor::findOrFail($id);
+        $user = User::where(['id' => $conductor->users_id])->first();
         $linea = Linea::where(['id' => $user->linea_id])->first();
-        $conductor = Conductor::where(['users_id' => $userId])->first();
+        $micro = Microbus::where(['conductor_id' => $conductor->id])->first();
 
-        //Obtener la lista de los micros conducidos por ese usuario
-        $drivings = new MicroConductor();
-        $drivings = $drivings->getBusesDrive($conductor->id);
-
-        $buses = [];
-
-        foreach ($drivings as $driving) {
-            $micro = Microbus::where(['id' => $driving->micro_id])->first();
-
-            $bus = new \stdClass();
-            $bus->conductor = $user->name;
-            $bus->linea = $linea->nombre;
-            $bus->id = $micro->id;
-            $bus->placa = $micro->placa;
-            $bus->modelo = $micro->modelo;
-            $bus->interno = $micro->nroInterno;
-            $bus->capacidad = $micro->nro_asientos;
-            $bus->foto = $micro->foto;
-            $bus->driving = $driving->id;
-
-            array_push($buses, $bus);
-        }
+        $bus = new \stdClass();
+        $bus->id = $micro->id;
+        $bus->placa = $micro->placa;
+        $bus->modelo = $micro->modelo;
+        $bus->interno = $micro->nroInterno;
+        $bus->capacidad = $micro->nro_asientos;
+        $bus->foto = $micro->foto;
+        $bus->conductor = $conductor->nombre;
+        $bus->linea = $linea->nombre;
 
         return response([
-            'bus' => $buses
+            'bus' => $bus
         ], 200);
-    }
-
-    /**
-     * Mostrar el listado de micros que el chofer ha conducido
-     */
-    public function getBusToday() {
-        $userId = auth()->user()->id;
-        $user = User::where(['id' => $userId])->first();
-        $linea = Linea::where(['id' => $user->linea_id])->first();
-        $conductor = Conductor::where(['users_id' => $userId])->first();
-        $conductorId = $conductor->id;
-
-        //Obtener la lista de los micros conducidos por ese usuario
-        $drivings = new MicroConductor();
-        $drivings = $drivings->getBusesDrive($conductorId);
-
-        //Obtener la fecha actual
-        $now = Carbon::now();
-        $fecha_actual = $now->format('Y-m-d');
-
-        $buses = [];
-
-        foreach ($drivings as $driving) {
-            /**Comparar la fecha actual con la fecha de MicroConductor
-             * Si es igual a la fecha actual obtener datos del micro
-             */
-            if ($fecha_actual == $driving->fecha) {
-                $micro = Microbus::where(['id' => $driving->micro_id])->first();
-
-                $bus = new \stdClass();
-                $bus->conductor = $user->name;
-                $bus->linea = $linea->nombre;
-                $bus->id = $micro->id;
-                $bus->placa = $micro->placa;
-                $bus->modelo = $micro->modelo;
-                $bus->interno = $micro->nroInterno;
-                $bus->capacidad = $micro->nro_asientos;
-                $bus->foto = $micro->foto;
-                $bus->driving = $driving->id;
-
-                array_push($buses, $bus);
-            }
-        }
-
-        return response([
-            'bus' => $buses
-        ], 200);
-    }
-
-    public function asignBusDriver(Request $request) {
-        $userId = auth()->user()->id;
-        $microId = $request->micro_id;
-        $now = Carbon::now();
-        $fecha_actual = $now->format('Y-m-d');
-
-        $driving = new MicroConductor();
-        $driving->fecha = $fecha_actual;
-        $driving->conductor_id = $userId;
-        $driving->micro_id = $microId;
-        $driving->save();
-
-        return response()->json($driving);
     }
 }

@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-
 use App\Models\User;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
@@ -51,12 +50,10 @@ class UserController extends Controller
         }
 
         $user = auth()->user();
-        $conductor = Conductor::where(['users_id' => $user->id])->first();
         $token = auth()->user()->createToken('secret')->plainTextToken;
 
         return response([
             'user' => $user,
-            'conductor' => $conductor,
             'token' => $token
         ], 200);
     }

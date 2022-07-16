@@ -10,6 +10,37 @@ use App\Models\Conductor;
 
 class ConductorController extends Controller
 {
+    public function loginApp(Request $request)
+    {
+        $attrs = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:6'
+        ]);
+
+        $conductor = Conductor::where([
+            'email' => $attrs['email'],
+            'password' => $attrs['password']
+        ])->first();
+
+        if ($conductor == null) {
+            return response([
+                'error' => 'Unauthorized'
+            ], 401);
+        }
+
+        return response([
+            'conductor' => $conductor,
+        ], 200);
+    }
+
+    public function getConductor($id) {
+        $conductor = Conductor::findOrFail($id);
+
+        return response([
+            'conductor' => $conductor
+        ], 200);
+    }
+
     public function createDriver(Request $request)
     {
         $userId = auth()->user()->id;
