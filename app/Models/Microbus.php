@@ -21,5 +21,9 @@ class Microbus extends Model
         'estado',
     ];
 
+    public function conductor() {
+        return $this->hasOne(Conductor::class, 'microbus_id');
+    }
+
 
 }

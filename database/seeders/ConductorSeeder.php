@@ -23,7 +23,8 @@ class ConductorSeeder extends Seeder
             'fecha_nacimiento' => '1992-11-21',
             'telefono' => '60845219',
             'categoria_lic' => 'C',
-            'users_id' => '1'
+            'users_id' => '1',
+            'microbus_id' => '1'
         ]);
 
         Conductor::create([
@@ -34,7 +35,8 @@ class ConductorSeeder extends Seeder
             'fecha_nacimiento' => '1992-11-21',
             'telefono' => '75266344',
             'categoria_lic' => 'C',
-            'users_id' => '1'
+            'users_id' => '1',
+            'microbus_id' => '2'
         ]);
 
         Conductor::create([
@@ -45,7 +47,8 @@ class ConductorSeeder extends Seeder
             'fecha_nacimiento' => '1992-11-21',
             'telefono' => '60593624',
             'categoria_lic' => 'C',
-            'users_id' => '1'
+            'users_id' => '1',
+            'microbus_id' => '3'
         ]);
     }
 }

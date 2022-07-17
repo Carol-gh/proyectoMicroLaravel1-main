@@ -27,7 +27,7 @@ class Conductor extends Model
     }
 
     public function micro() {
-        return $this->hasOne(Microbus::class, 'microbus_id');
+        return $this->belongsTo(Microbus::class, 'microbus_id');
     }
 
     public function recorridos() {

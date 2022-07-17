@@ -20,8 +20,8 @@ class MicroSeeder extends Seeder
             'modelo' => '2015',
             'nro_asientos' => '23',
             'nroInterno' => '18',
+            'estado' => 'ocupado',
             'fecha_asignacion' => '2001-3-23',
-            'conductor_id' => 1
         ]);
 
         Microbus::create([
@@ -29,8 +29,8 @@ class MicroSeeder extends Seeder
             'modelo' => '2015',
             'nro_asientos' => '23',
             'nroInterno' => '14',
+            'estado' => 'ocupado',
             'fecha_asignacion' => '2001-3-23',
-            'conductor_id' => 2
         ]);
 
         Microbus::create([
@@ -38,8 +38,8 @@ class MicroSeeder extends Seeder
             'modelo' => '2015',
             'nro_asientos' => '23',
             'nroInterno' => '1',
+            'estado' => 'ocupado',
             'fecha_asignacion' => '2001-3-23',
-            'conductor_id' => 3
         ]);
     }
 }
