@@ -23,13 +23,10 @@ return new class extends Migration
             $table->string('fecha_asignacion')->nullable();
             $table->string('fecha_baja')->nullable();
             $table->string('estado')->default('Disponible');
-            $table->unsignedBigInteger('conductor_id');
             $table->timestamps();
 
             $table->softDeletes();
 
-            $table->foreign('conductor_id')->on('conductor')->references('id')
-            ->onDelete('cascade');
         });
     }
 

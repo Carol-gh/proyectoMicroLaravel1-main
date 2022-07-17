@@ -24,21 +24,25 @@
   <thead class="thead-dark">
     <tr>
       <th scope="col">ID</th>
-      <th scope="col">Placa</th>
-      <th scope="col">tiempo</th>
-      <th scope="col">Linea</th>
-      <th scope="col">Modelo</th>
-      <th scope="col center">Accion</th>
+      <th scope="col">FOTO</th>
+      <th scope="col">PLACA</th>
+      <th scope="col">NRO INTERNO</th>
+      <th scope="col">ESTADO</th>
+      <th scope="col ">ACCION</th>
     </tr>
   </thead>
   <tbody>
   @foreach($microbus as $microbus)
   <tr>
       <th scope="row">{{$microbus->id}}</th>
+      <td>
+      <div class="img-container">
+          <img style="width: 40%" src="{{ asset('storage'.'/'.$microbus->foto) }}" alt="...">
+      </div>
+      </td>
       <td>{{$microbus->placa}}</td>
-      <td>{{$microbus->linea->tiempo}}</td>
-      <td>{{$microbus->linea->nombre}}</td>
-      <td>{{$microbus->modelo}}</td>
+      <td>{{$microbus->nroInterno}}</td>
+      <td>{{$microbus->estado}}</td>
       <td class="px-6 py-4 text-center">              
             <button type="button" class="btn btn-outline-success"> ver o editar</button>
             <button type="button" class="btn btn-outline-danger">eliminar</button> </span> 

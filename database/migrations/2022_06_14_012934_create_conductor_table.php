@@ -24,11 +24,15 @@ return new class extends Migration
             $table->string('categoria_lic');
             $table->string('foto')->nullable();
             $table->unsignedBigInteger('users_id');
+            $table->unsignedBigInteger('microbus_id');
             $table->timestamps();
 
             $table->softDeletes();
 
             $table->foreign('users_id')->on('users')->references('id')
+            ->onDelete('cascade');
+  
+            $table->foreign('microbus_id')->on('microbus')->references('id')
             ->onDelete('cascade');
         });
     }

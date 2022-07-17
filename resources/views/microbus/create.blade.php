@@ -16,10 +16,16 @@
       <th scope="row">
       <form action="{{route('microbus.register') }}" method="POST" class="form-horizontal" enctype="multipart/form-data">
      @csrf 
-     <div class="form-group">
-        <label for="example-datetime-local-input" class="form-control-label">FOTO</label>
-        <input class="form-control" name = 'foto' type="text" value="{{old('foto')}}" id="foto" required>
-    </div>      
+     <br>
+        <div class="row">
+                <label for="nombre" class="col-sm-2 col-form-label">FOTO</label>
+                      <div class="col-sm-7">
+                    <input type="file" name="foto" class="form-control"
+                  id="exampleInputEmail" placeholder="Seleccione una imagen..."
+               accept=".jpg, .jpeg, .png" value="{{ old('foto') }}">
+          </div>
+          </div>
+        <br>     
     <div class="form-group">
         <label for="example-text-input" class="form-control-label">PLACA</label>
         <input class="form-control" name ='placa' type="text" value="{{old('placa')}}" id="placa" required>
@@ -48,14 +54,6 @@
         <label for="example-datetime-local-input" class="form-control-label">ESTADO</label>
         <input class="form-control" name= 'estado' type="text" value="{{old('estado')}}" id="estado" required>
     </div>
-    <div class="form-group">
-    <label for="example-email-input" class="form-control-label">Linea</label>
-   
-    <input class="form-control" name= 'linea_id' type="text" value="{{old('linea_id')}}" id="linea" required>
-   
-    </div>
-  
-  
    
     <label for="example-datetime-local-input" class="form-control-label">enviar</label>
         <input class="form-control" type="submit" value="guardar">
