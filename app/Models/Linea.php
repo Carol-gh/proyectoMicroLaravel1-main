@@ -19,8 +19,8 @@ class Linea extends Model
         return $this->hasMany(Ruta::class, 'linea_id');
     }
 
-    public function microbus() {
-        return $this->hasMany(Microbus::class, 'linea_id');
+    public function users() {
+        return $this->hasMany(User::class, 'linea_id');
     }
 
     public function getLineas() {

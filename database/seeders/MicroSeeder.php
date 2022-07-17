@@ -20,8 +20,8 @@ class MicroSeeder extends Seeder
             'modelo' => '2015',
             'nro_asientos' => '23',
             'nroInterno' => '18',
-            'estado' => 'Disponible',
-            'linea_id' => 1,
+            'estado' => 'ocupado',
+            'fecha_asignacion' => '2001-3-23',
         ]);
 
         Microbus::create([
@@ -29,8 +29,8 @@ class MicroSeeder extends Seeder
             'modelo' => '2015',
             'nro_asientos' => '23',
             'nroInterno' => '14',
-            'estado' => 'Disponible',
-            'linea_id' => 1,
+            'estado' => 'ocupado',
+            'fecha_asignacion' => '2001-3-23',
         ]);
 
         Microbus::create([
@@ -38,35 +38,8 @@ class MicroSeeder extends Seeder
             'modelo' => '2015',
             'nro_asientos' => '23',
             'nroInterno' => '1',
-            'estado' => 'Disponible',
-            'linea_id' => 1,
-        ]);
-
-        Microbus::create([
-            'placa' => '4568SFG',
-            'modelo' => '2015',
-            'nro_asientos' => '23',
-            'nroInterno' => '18',
-            'estado' => 'Disponible',
-            'linea_id' => 2,
-        ]);
-
-        Microbus::create([
-            'placa' => '3648SRT',
-            'modelo' => '2015',
-            'nro_asientos' => '23',
-            'nroInterno' => '2',
-            'estado' => 'Disponible',
-            'linea_id' => 2,
-        ]);
-
-        Microbus::create([
-            'placa' => '6945SJY',
-            'modelo' => '2015',
-            'nro_asientos' => '23',
-            'nroInterno' => '10',
-            'estado' => 'Disponible',
-            'linea_id' => 2,
+            'estado' => 'ocupado',
+            'fecha_asignacion' => '2001-3-23',
         ]);
     }
 }

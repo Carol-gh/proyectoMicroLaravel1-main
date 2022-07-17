@@ -17,11 +17,16 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('linea')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+            $table->unsignedBigInteger('linea_id');
             $table->timestamps();
+
+            $table->softDeletes();
+
+            $table->foreign('linea_id')->on('linea')->references('id')
+            ->onDelete('cascade');
         });
     }
 

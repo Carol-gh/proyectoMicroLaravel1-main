@@ -17,50 +17,60 @@ class LineaSeeder extends Seeder
     {
         Linea::create([
             'nombre' => 'Línea 1',
+            'tiempo' => '90',
             'tipo' => null,
         ]);
 
         Linea::create([
             'nombre' => 'Línea 2',
+            'tiempo' => '90',
             'tipo' => null,
         ]);
 
         Linea::create([
             'nombre' => 'Línea 5',
+            'tiempo' => '90',
             'tipo' => null,
         ]);
 
         Linea::create([
             'nombre' => 'Línea 8',
+            'tiempo' => '90',
             'tipo' => null,
         ]);
         Linea::create([
             'nombre' => 'Línea 9',
+            'tiempo' => '90',
             'tipo' => null,
         ]);
 
         Linea::create([
             'nombre' => 'Línea 10',
+            'tiempo' => '90',
             'tipo' => null,
         ]);
 
         Linea::create([
             'nombre' => 'Línea 11',
+            'tiempo' => '90',
             'tipo' => null,
         ]);
 
         Linea::create([
             'nombre' => 'Línea 16',
+            'tiempo' => '90',
             'tipo' => null,
         ]);
 
         Linea::create([
             'nombre' => 'Línea 17',
+            'tiempo' => '90',
             'tipo' => null,
         ]);
 
         Linea::create([
             'nombre' => 'Línea 18',
+            'tiempo' => '90',
             'tipo' => null,
         ]);
     }
