@@ -1,9 +1,9 @@
 <?php
-
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
+
 use App\Models\Linea;
 use App\Models\Ruta;
 use App\Models\Coordenada;
@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\Conductor;
 use App\Models\Microbus;
 use App\Models\MicroConductor;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -27,9 +28,8 @@ class DatabaseSeeder extends Seeder
         $this->call(Linea02Seeder::class);
         $this->call(Linea11Seeder::class);
         $this->call(Linea16Seeder::class);
-        $this->call(UserSeeder::class);
-        $this->call(ConductorSeeder::class);
+        $this->call([UsersTableSeeder::class]);
         $this->call(MicroSeeder::class);
-        $this->call(MicrodriverSeeder::class);
+        $this->call(ConductorSeeder::class);
     }
 }

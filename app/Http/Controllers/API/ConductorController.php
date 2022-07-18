@@ -10,58 +10,34 @@ use App\Models\Conductor;
 
 class ConductorController extends Controller
 {
-    public function register(Request $request)
+    public function loginApp(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'ci' => 'required',
-            'fecha_nacimiento'=> 'required|date',
-            'categoria_lic' => 'required',
-            'telefono' => 'required',
-            'users_id' => 'required'
+        $attrs = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:6'
         ]);
 
-        if ($validator->fails()) {
-            return response()->json($validator->errors()->toJson(), 400);
+        $conductor = Conductor::where([
+            'email' => $attrs['email'],
+            'password' => $attrs['password']
+        ])->first();
+
+        if ($conductor == null) {
+            return response([
+                'error' => 'Unauthorized'
+            ], 401);
         }
 
-        $conductor = Conductor::create(
-            array_merge($validator->validate(),),
-        );
-
-        $image = $this->saveImage($request->foto, 'imagenes');
-        $conductor->foto = $image;
-        $conductor->save();
-
-        return response()->json([
-            'message' => 'Conductor creado',
-            'conductor' => $conductor
-        ], 401);
+        return response([
+            'conductor' => $conductor,
+        ], 200);
     }
 
-    public function createDriver(Request $request)
-    {
-        $userId = auth()->user()->id;
-        $image = $this->saveImage($request->foto, 'imagenes');
+    public function getConductor($id) {
+        $conductor = Conductor::findOrFail($id);
 
-        $attrs = $request->validate([
-            'ci' => 'required',
-            'fecha_nacimiento'=> 'required|date',
-            'categoria_lic' => 'required',
-            'telefono' => 'required',
-        ]);
-
-        $conductor = Conductor::create([
-            'ci' => $attrs['ci'],
-            'fecha_nacimiento'=> $attrs['fecha_nacimiento'],
-            'categoria_lic' => $attrs['categoria_lic'],
-            'telefono' => $attrs['telefono'],
-            'foto' => $image,
-            'users_id' => $userId
-        ]);
-
-        return response()->json([
-            'message' => 'Conductor creado',
+        return response([
             'conductor' => $conductor
-        ], 401);
+        ], 200);
     }
 }

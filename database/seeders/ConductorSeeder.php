@@ -16,11 +16,39 @@ class ConductorSeeder extends Seeder
     public function run()
     {
         Conductor::create([
-            'ci' => '8965038',
-            'fecha_nacimiento' => '1998-11-24',
-            'telefono' => '60342875',
+            'nombre' => 'Finnick Norton',
+            'email' => 'nortonfinnick@gmail.com',
+            'password' => '123456789',
+            'ci' => '8945087',
+            'fecha_nacimiento' => '1992-11-21',
+            'telefono' => '60845219',
             'categoria_lic' => 'C',
-            'users_id' => 1,
+            'users_id' => '1',
+            'microbus_id' => '1'
+        ]);
+
+        Conductor::create([
+            'nombre' => 'Zachary Natch',
+            'email' => 'natchzachary@gmail.com',
+            'password' => '123456789',
+            'ci' => '45263754',
+            'fecha_nacimiento' => '1992-11-21',
+            'telefono' => '75266344',
+            'categoria_lic' => 'C',
+            'users_id' => '1',
+            'microbus_id' => '2'
+        ]);
+
+        Conductor::create([
+            'nombre' => 'Fatih Sekercizade',
+            'email' => 'sekercizadefatih@gmail.com',
+            'password' => '123456789',
+            'ci' => '46723184',
+            'fecha_nacimiento' => '1992-11-21',
+            'telefono' => '60593624',
+            'categoria_lic' => 'C',
+            'users_id' => '1',
+            'microbus_id' => '3'
         ]);
     }
 }

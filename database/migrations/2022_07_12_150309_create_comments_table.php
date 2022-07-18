@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('motivo')->nullable();
             $table->string('horaRetiro')->nullable();
+            $table->string('tiempo')->nullable();
             $table->unsignedBigInteger('recorrido_id');
             $table->timestamps();
 
