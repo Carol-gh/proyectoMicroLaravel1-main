@@ -36,12 +36,16 @@ class ConductorControllerA extends Controller
      */
     public function create()
     {  $user_id= Auth::user()->id;
-        $conductor = DB::table('users')
+        $conductor =  DB::table('users')
         ->join('conductor', 'users.id', '=', 'conductor.users_id')
+        ->join('microbus', 'microbus.id', '=', 'conductor.microbus_id')
         ->join('linea','users.linea_id','=','linea.id') 
-        ->select('conductor.*', 'linea.nombre')
+        ->select('conductor.*', 'linea.*','microbus.*')
         ->where('users.id',$user_id)
-       ->get();
+       ->first();
+       if(!empty($conductor->microbus_id)){
+         Microbus::where('id','=',$conductor->microbus_id)->update(['estado'=>'activo']);
+       }
         return view('conductor.create', compact('conductor'));
     }
 
@@ -56,10 +60,12 @@ class ConductorControllerA extends Controller
         $conductor['users_id'] = Auth::user()->id;
         if($request->hasfile('foto')){
             $conductor['foto'] = $request->file('foto')->store('uploads','public');
-        }
+        } 
+        $estado=microbus::where('estado','=','inactivo')->get();
         Conductor::insert($conductor);
-   
-       return  redirect()->route('conductorMicrobus.view'); 
+          
+        $microbus=Microbus::all();
+       return  redirect()->route('conductorMicrobus.view', ['estado'=>$estado])->with(compact('microbus',$microbus)); 
     }
 
     /**
@@ -71,6 +77,21 @@ class ConductorControllerA extends Controller
     public function show($id)
     {
         //
+        
+        $conductor = Conductor::find($id); 
+        $user_id= Auth::user()->id;
+        $linea =  DB::table('users')
+        ->join('conductor', 'users.id', '=', 'conductor.users_id')
+        ->join('microbus', 'microbus.id', '=', 'conductor.microbus_id')
+        ->join('linea','users.linea_id','=','linea.id') 
+        ->select('conductor.*', 'linea.*','microbus.*')
+        ->where('users.id',$user_id)
+       ->first();
+       $microbus= Microbus::all();
+
+      
+       return view('conductor.verConductor', ['conductor'=>$conductor],['linea'=>$linea])->with(compact('microbus',$microbus));
+    
     }
 
     /**
@@ -92,8 +113,27 @@ class ConductorControllerA extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
+    {   $datosConductor=request()->except(['_token','_method']);
+        if($request->hasfile('foto')){
+            $conductor = Conductor::findOrfail($id); 
+            Storage::disk('public')->delete($conductor->foto);
+            $datosConductor['foto'] = $request->file('foto')->store('uploads','public');
+        }
+       
+       /*  $dm =DB::table('microbus')
+        ->join('conductor', 'conductor.microbus_id', '=', 'microbus.id')
+        ->where('conductor.id',$id)->update(['estado'=>'inactivo']);
+
+       
+        $idm=Microbus::select('id')->where('microbus.placa','=',$request->microbus_id)->first();
+        $datosConductor['microbus_id'] =$idm->id;
+        Microbus::where('id','=',$idm->id)->update(['estado'=>'activo']); */
+
+        Conductor::where('id','=',$id)->update($datosConductor);
+        $conductor = Conductor::findOrFail($id); 
+        $microbus= Microbus::all();
+        return view('conductor.verConductor', ['conductor'=>$conductor])->with(compact('microbus',$microbus));
+       
     }
 
     /**

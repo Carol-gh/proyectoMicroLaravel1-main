@@ -27,8 +27,10 @@
       <th scope="col">codigo</th>
       <th scope="col">cedula identidad</th>
       <th scope="col">foto</th>
-      <th scope="col">linea</th>
-      <th scope="col">categoria</th>
+      <th scope="col">nombre</th>
+      <th scope="col">email</th>
+      <th scope="col">telefono</th>
+      <th scope="col">CATEGORIA</th>
       <th scope="col">acciones</th>
     </tr>
   </thead>
@@ -39,19 +41,24 @@
       <td>{{$conductor->ci}}</td>
       <td>
       <div class="img-container">
-          <img style="width: 25%" src="{{ asset('storage'.'/'.$conductor->foto) }}" alt="...">
+          <img style="width:20%" src="{{ asset('storage'.'/'.$conductor->foto) }}" alt="...">
       </div>
       </td>
       <td>{{$conductor->nombre}}</td>
+      <td>{{$conductor->email}}</td>
+      <td>{{$conductor->telefono}}</td>
       <td>{{$conductor->categoria_lic}}</td>
        <td class="px-6 py-4 text-center">              
       
-       <button type="button" class="btn btn-outline-success"> ver o editar</button>
-    
-        <form  action="{{ url('Conductor/eliminarConductor',$conductor->id) }}" method="POST">
-            @csrf
-            {{ method_field('DELETE') }}
-            <input class="btn btn-outline-danger" type="submit" onclick="return confirm('¿quieres borrar el conductor?')" value="Borrar">
+   
+       <form  action="{{ route('conductorMicrobus.detalle',$conductor->id) }}" method="GET">
+           <input class="btn btn-outline-success" type="submit"  value="ver">
+
+          </form>
+        <form  action="{{ route('conductorMicrobus.eliminar',$conductor->id) }}" method="POST">
+        {{ csrf_field() }}
+        @method('DELETE')
+            <input class="btn btn-outline-danger" type="submit"  value="eliminar">
           </form>
             
         </td>

@@ -40,8 +40,9 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('/conductorMicrobus', [App\Http\Controllers\ConductorControllerA::class,'view'])->name('conductorMicrobus.view');
 Route::get('/crearConductor', [App\Http\Controllers\ConductorControllerA::class,'create'])->name('conductorMicrobus.create');
 Route::post('/registerConductor', [App\Http\Controllers\ConductorControllerA::class,'sendData'])->name('conductorMicrobus.register');
-Route::post('/eliminarConductor/{conductor}', [App\Http\Controllers\ConductorControllerA::class,'destroy'])->name('conductorMicrobus.eliminar');
-
+Route::delete('/eliminar/{conductor}', [App\Http\Controllers\ConductorControllerA::class,'destroy'])->name('conductorMicrobus.eliminar');
+Route::get('/detalle/{conductor}', [App\Http\Controllers\ConductorControllerA::class,'show'])->name('conductorMicrobus.detalle');
+Route::put('/update/{conductor}', [App\Http\Controllers\ConductorControllerA::class, 'update'])->name('conductorMicrobus.update');
 });
 // microbus
 Route::group(['prefix' => 'Microbus'], function () {
@@ -49,7 +50,9 @@ Route::get('/Microbus', [App\Http\Controllers\MicrobusControllerA::class,'index'
 Route::get('/crearMicrobus', [App\Http\Controllers\MicrobusControllerA::class,'create'])->name('microbus.create');
 Route::post('/registrarMicrobus', [App\Http\Controllers\MicrobusControllerA::class,'sendData'])->name('microbus.register');
 Route::get('/lineas', [App\Http\Controllers\MicrobusControllerA::class,'getLineasAll'])->name('microbus.lineas');
-Route::post('/eliminarMicrobus/{microbus}', [App\Http\Controllers\MicrobusControllerA::class,'destroy'])->name('microbus.eliminar');
+Route::delete('/eliminarMicrobus/{microbus}', [App\Http\Controllers\MicrobusControllerA::class,'destroy'])->name('microbus.eliminar');
+Route::get('/detalle/{microbus}', [App\Http\Controllers\MicrobusControllerA::class,'show'])->name('microbus.detalle');
+Route::put('/update/{microbus}', [App\Http\Controllers\MicrobusControllerA::class, 'update'])->name('microbus.update');
 
 });
 
