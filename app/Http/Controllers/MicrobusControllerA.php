@@ -16,7 +16,7 @@ class MicrobusControllerA extends Controller
 
        public function index()
     {
-        //$datos['microbus'] = Microbus::paginate(5);
+        $datos['microbus'] = Microbus::all();
         return view('microbus.index',$datos);
     }
 
