@@ -44,8 +44,15 @@
       <td>{{$microbus->nroInterno}}</td>
       <td>{{$microbus->estado}}</td>
       <td class="px-6 py-4 text-center">              
-            <button type="button" class="btn btn-outline-success"> ver o editar</button>
-            <button type="button" class="btn btn-outline-danger">eliminar</button> </span> 
+      <form  action="{{ route('microbus.detalle',$microbus->id) }}" method="GET">
+           <input class="btn btn-outline-success" type="submit"  value="ver">
+
+          </form>
+        <form  action="{{ route('microbus.eliminar',$microbus->id) }}" method="POST">
+        {{ csrf_field() }}
+        @method('DELETE')
+            <input class="btn btn-outline-danger" type="submit"  value="eliminar">
+          </form>
         </td>
     </tr>
     @endforeach

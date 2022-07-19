@@ -44,8 +44,7 @@
     <div class="form-group">
         <label for="eexample-text-input" class="form-control-label">CATEGORIA LICENCIA</label>
         <input class="form-control" name="categoria_lic" type="text" value="{{old('categoria_lic')}}" id="categoria_lic" required>
-    </div>
-
+</div>
     <br>
         <div class="row">
                 <label for="nombre" class="col-sm-2 col-form-label">FOTO</label>
@@ -59,9 +58,11 @@
 
       <div class="form-group">
         <label for="eexample-text-input" class="form-control-label">ASIGNAR PLACA DE MICROBUS</label>
-        <input class="form-control" name="microbus_id" type="text" value="{{old('microbus_id')}}" id="microbus_id" required>
-    </div>
-
+      
+          <input class="form-control" name="microbus_id" type="text" value="{{old('microbus_id')}}" id="microbus_id" required>
+   
+      </div>
+     
         <label for="example-datetime-local-input" class="form-control-label">enviar</label>
         <input class="form-control" type="submit" value="guardar">   
 
