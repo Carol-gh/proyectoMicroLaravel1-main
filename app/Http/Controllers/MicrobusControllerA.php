@@ -13,13 +13,13 @@ use App\Models\Conductor;
 
 class MicrobusControllerA extends Controller
 {
-  
+
        public function index()
     {
-        $datos['microbus'] = Microbus::paginate(5);
+        //$datos['microbus'] = Microbus::paginate(5);
         return view('microbus.index',$datos);
     }
-    
+
     public function create()
     {  $microbus = Microbus::all();
         return view('microbus.create');
@@ -29,16 +29,17 @@ class MicrobusControllerA extends Controller
     public function sendData(Request $request)
     {  $microbus=request()->except('_token');
         if($request->hasfile('foto')){
-            $microbus['foto'] = $request->file('foto')->store('uploads','public');
+            //$microbus['foto'] = $request->file('foto')->store('uploads','public');
+            $microbus['foto'] = Storage::disk('public')->put('imagenes', $request->foto);
         }
         Microbus::insert($microbus);
         return  redirect()->route('microbus.index');
-       
+
     }
 
     public function getLineasAll() {
         $lineas = Linea::all();
-        return view('microbus.create',compact('lineas')); 
+        return view('microbus.create',compact('lineas'));
     }
 
     public function getBus($conductorId) {
@@ -60,5 +61,5 @@ class MicrobusControllerA extends Controller
         return response()->json($microbus);
     }
 
-   
+
 }

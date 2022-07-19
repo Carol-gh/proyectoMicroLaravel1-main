@@ -10,7 +10,7 @@ use DateTime;
 use App\Models\Recorrido;
 use App\Models\Linea;
 use App\Models\User;
-use App\Models\MicroConductor;
+use App\Models\Microbus;
 use App\Models\Conductor;
 use App\Models\Comment;
 
@@ -46,14 +46,6 @@ class RecorridoController extends Controller
     public function update(Request $request, $id)
     {
         $track = Recorrido::find($id);
-        /*$horaUpd = $track->updated_at->format('H:i');
-        $dateUpd = new DateTime($horaUpd);
-        $dateOld = new DateTime($track->horaSalida);
-        $llegTime = new DateTime($track->horaLLegada);
-        $tiempoUpd = $dateOld->diff($dateUpd);
-        $tiempoUpd = $tiempoUpd->format('%h:%i:%s');
-        $retraso = $llegTime->diff($dateUpd);
-        $retraso = $retraso->format('%h:%i:%s');*/
 
         if(!$track)
         {
@@ -65,8 +57,6 @@ class RecorridoController extends Controller
         $track->update([
             'latitud' =>  $request->latitud,
             'longitud' => $request->longitud,
-            //'tiempo' => $tiempoUpd,
-            //'retraso' => $retraso
         ]);
 
         return response()->json([
@@ -129,7 +119,6 @@ class RecorridoController extends Controller
         $fechaActual = $now->format('Y-m-d');
 
         $recorridos = Recorrido::where([
-            'tipo' => $tipo,
             'fecha' => $fechaActual,
             'estado' => 'activo',
         ])->get();
@@ -137,9 +126,43 @@ class RecorridoController extends Controller
         $list = [];
 
         foreach ($recorridos as $recorrido) {
-            $driving = MicroConductor::where(['id' => $recorrido->drive_id])->first();
-            $micro = Micro::where(['id' => $driving->micro_id])->first();
-            $lineaMicro = Linea::where(['id' => $micro->linea_id])->first();
+            $conductor = Conductor::where(['id' => $recorrido->conductor_id])->first();
+            $micro = Microbus::where(['id' => $conductor->microbus_id])->first();
+            $user = User::where(['id' => $conductor->users_id])->first();
+            $lineaMicro = Linea::where(['id' => $user->linea_id])->first();
+
+            $item = new \stdClass();
+            if ($linea == $lineaMicro->nombre) {
+                $item->id = $recorrido->id;
+                $item->latitud = $recorrido->latitud;
+                $item->longitud = $recorrido->longitud;
+                $item->tipo = $recorrido->tipo;
+                $item->interno = $micro->nroInterno;
+            }
+            array_push($list, $item);
+        }
+
+        return response()->json($list, 200);
+    }
+
+    public function ubicaciones($linea, $tipo)
+    {
+        $now = Carbon::now();
+        $fechaActual = $now->format('Y-m-d');
+
+        $recorridos = Recorrido::where([
+            'fecha' => $fechaActual,
+            'estado' => 'activo',
+        ])->get();
+
+        $list = [];
+
+        foreach ($recorridos as $recorrido) {
+            $conductor = Conductor::where(['id' => $recorrido->conductor_id])->first();
+            $micro = Microbus::where(['id' => $conductor->microbus_id])->first();
+            $user = User::where(['id' => $conductor->users_id])->first();
+            $lineaMicro = Linea::where(['id' => $user->linea_id])->first();
+
             $item = new \stdClass();
             if ($linea == $lineaMicro->nombre) {
                 $item->id = $recorrido->id;
