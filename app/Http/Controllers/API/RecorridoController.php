@@ -10,7 +10,7 @@ use DateTime;
 use App\Models\Recorrido;
 use App\Models\Linea;
 use App\Models\User;
-use App\Models\Microbus;
+use App\Models\MicroConductor;
 use App\Models\Conductor;
 use App\Models\Comment;
 
@@ -46,6 +46,14 @@ class RecorridoController extends Controller
     public function update(Request $request, $id)
     {
         $track = Recorrido::find($id);
+        /*$horaUpd = $track->updated_at->format('H:i');
+        $dateUpd = new DateTime($horaUpd);
+        $dateOld = new DateTime($track->horaSalida);
+        $llegTime = new DateTime($track->horaLLegada);
+        $tiempoUpd = $dateOld->diff($dateUpd);
+        $tiempoUpd = $tiempoUpd->format('%h:%i:%s');
+        $retraso = $llegTime->diff($dateUpd);
+        $retraso = $retraso->format('%h:%i:%s');*/
 
         if(!$track)
         {
@@ -57,6 +65,8 @@ class RecorridoController extends Controller
         $track->update([
             'latitud' =>  $request->latitud,
             'longitud' => $request->longitud,
+            //'tiempo' => $tiempoUpd,
+            //'retraso' => $retraso
         ]);
 
         return response()->json([
@@ -115,7 +125,6 @@ class RecorridoController extends Controller
     {
         $now = Carbon::now();
         $fechaActual = $now->format('Y-m-d');
-
         $recorridos = Recorrido::where([
             'fecha' => $fechaActual,
             'tipo' => $tipo,
@@ -129,7 +138,6 @@ class RecorridoController extends Controller
             $micro = Microbus::where(['id' => $conductor->microbus_id])->first();
             $user = User::where(['id' => $conductor->users_id])->first();
             $lineaMicro = Linea::where(['id' => $user->linea_id])->first();
-
             $item = new \stdClass();
             if ($linea == $lineaMicro->nombre) {
                 $item->id = $recorrido->id;
