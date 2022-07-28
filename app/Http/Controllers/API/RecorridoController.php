@@ -10,7 +10,7 @@ use DateTime;
 use App\Models\Recorrido;
 use App\Models\Linea;
 use App\Models\User;
-use App\Models\MicroConductor;
+use App\Models\Microbus;
 use App\Models\Conductor;
 use App\Models\Comment;
 
