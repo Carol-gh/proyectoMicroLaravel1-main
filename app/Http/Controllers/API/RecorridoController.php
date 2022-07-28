@@ -152,4 +152,6 @@ class RecorridoController extends Controller
 
         return response()->json($list, 200);
     }
+
+    //subir
 }
