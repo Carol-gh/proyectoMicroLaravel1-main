@@ -111,40 +111,6 @@ class RecorridoController extends Controller
         ], 200);
     }
 
-    public function getCoordinates(Request $request)
-    {
-        $linea = $request->linea;
-        $tipo = $request->tipo;
-        $now = Carbon::now();
-        $fechaActual = $now->format('Y-m-d');
-
-        $recorridos = Recorrido::where([
-            'fecha' => $fechaActual,
-            'estado' => 'activo',
-        ])->get();
-
-        $list = [];
-
-        foreach ($recorridos as $recorrido) {
-            $conductor = Conductor::where(['id' => $recorrido->conductor_id])->first();
-            $micro = Microbus::where(['id' => $conductor->microbus_id])->first();
-            $user = User::where(['id' => $conductor->users_id])->first();
-            $lineaMicro = Linea::where(['id' => $user->linea_id])->first();
-
-            $item = new \stdClass();
-            if ($linea == $lineaMicro->nombre) {
-                $item->id = $recorrido->id;
-                $item->latitud = $recorrido->latitud;
-                $item->longitud = $recorrido->longitud;
-                $item->tipo = $recorrido->tipo;
-                $item->interno = $micro->nroInterno;
-            }
-            array_push($list, $item);
-        }
-
-        return response()->json($list, 200);
-    }
-
     public function ubicaciones($linea, $tipo)
     {
         $now = Carbon::now();
@@ -152,6 +118,7 @@ class RecorridoController extends Controller
 
         $recorridos = Recorrido::where([
             'fecha' => $fechaActual,
+            'tipo' => $tipo,
             'estado' => 'activo',
         ])->get();
 
@@ -170,6 +137,7 @@ class RecorridoController extends Controller
                 $item->longitud = $recorrido->longitud;
                 $item->tipo = $recorrido->tipo;
                 $item->interno = $micro->nroInterno;
+                $item->linea = $linea;
             }
             array_push($list, $item);
         }
