@@ -26,15 +26,4 @@ Route::post('recorrido/{conductor}', 'App\Http\Controllers\API\RecorridoControll
 Route::put('/update/{id}', 'App\Http\Controllers\API\RecorridoController@update');
 Route::put('/finish/{id}', 'App\Http\Controllers\API\RecorridoController@finishRecorrido');
 Route::post('salir', 'App\Http\Controllers\API\RecorridoController@saveRetiro');
-
-/*Route::group(['middleware' => ['auth:sanctum']], function() {
-    Route::get('user', 'App\Http\Controllers\API\UserController@user');
-    Route::put('user', 'App\Http\Controllers\API\UserController@update');
-    Route::post('logout', 'App\Http\Controllers\API\UserController@logout');
-
-    Route::post('recorrido', 'App\Http\Controllers\API\RecorridoController@create');
-    Route::put('/update/{id}', 'App\Http\Controllers\API\RecorridoController@update');
-    Route::post('salir', 'App\Http\Controllers\API\RecorridoController@saveRetiro');
-
-    Route::post('ubicacion', 'App\Http\Controllers\API\RecorridoController@detalleRecorrido');
-});*/
+Route::get('coordinates/{linea}/{tipo}', 'App\Http\Controllers\API\RecorridoController@ubicaciones');
