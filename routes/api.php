@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('login', 'App\Http\Controllers\API\UserController@login');
 Route::post('register', 'App\Http\Controllers\API\UserController@register');
+Route::get('showbuses', 'App\Http\Controllers\API\RecorridoController@getCoordinates');
 
 Route::post('login/driver', 'App\Http\Controllers\API\ConductorController@loginApp');
 Route::get('driver/{id}', 'App\Http\Controllers\API\ConductorController@getConductor');
