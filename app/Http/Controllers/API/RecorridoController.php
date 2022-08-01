@@ -89,7 +89,9 @@ class RecorridoController extends Controller
         $horaUpdate = $track->updated_at->format('H:i');
 
         $track->tiempo = $tiempoUpd;
-        $track->retraso = $retraso;
+        if ($retraso > $horaUpd) {
+            $track->retraso = $retraso;
+        }
         $track->horaLLegada = $horaUpd;
         $track->estado = 'Desactivado';
         $track->save();
@@ -144,14 +146,13 @@ class RecorridoController extends Controller
                 $item->latitud = $recorrido->latitud;
                 $item->longitud = $recorrido->longitud;
                 $item->tipo = $recorrido->tipo;
+                $item->estado = $recorrido->estado;
                 $item->interno = $micro->nroInterno;
                 $item->linea = $linea;
             }
             array_push($list, $item);
         }
 
-        return response()->json($list, 200);
+        return response(['bus' => $list], 200);
     }
-
-    //subir
 }
